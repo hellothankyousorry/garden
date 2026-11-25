@@ -1,0 +1,308 @@
+@import "katex/dist/katex.min.css";
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-color: var(--muted-foreground) transparent;
+  }
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-2 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  h1, h2, h3, h4 {
+    @apply text-foreground;
+  }
+}
+
+@utility app-layout {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+
+@utility prose-layout {
+  @apply mx-auto w-full max-w-3xl px-5 sm:px-8;
+}
+
+@utility active-nav {
+  @apply text-accent;
+}
+
+:target {
+  scroll-margin-block: 6rem;
+}
+
+/* ---------- Editorial type ---------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+}
+
+.display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.accent-script {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.hand-cn {
+  font-family: var(--font-hand-cn);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+/* ---------- Glass / paper surfaces ---------- */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-art);
+}
+
+.paper-card {
+  background: linear-gradient(150deg, var(--background), var(--background-alt));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-art);
+}
+
+.thread-line {
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  fill: none;
+  opacity: 0.42;
+}
+
+/* ---------- Home hero ---------- */
+.hero-stage {
+  position: relative;
+  min-height: min(88svh, 54rem);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-title {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(4.2rem, 15vw, 12.5rem);
+}
+
+.hero-title .line {
+  display: block;
+}
+
+.hero-title .line-two {
+  margin-inline-start: clamp(1rem, 12vw, 11rem);
+  margin-top: -0.12em;
+}
+
+.hero-cn {
+  font-size: clamp(2.2rem, 6.4vw, 5.6rem);
+  line-height: 1.18;
+  color: var(--foreground);
+  opacity: 0.92;
+}
+
+.hero-script {
+  position: absolute;
+  z-index: 3;
+  right: clamp(1rem, 11vw, 11rem);
+  top: 18%;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.hero-orbit {
+  position: absolute;
+  inset: 8% -12% 2% auto;
+  width: min(62vw, 52rem);
+  height: min(62vw, 52rem);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  z-index: 0;
+}
+
+.hero-orbit::before,
+.hero-orbit::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--violet) 28%, transparent);
+  inset: 12%;
+}
+
+.hero-orbit::after {
+  inset: 28%;
+  border-color: color-mix(in srgb, var(--tangerine) 35%, transparent);
+}
+
+.hero-node {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.floating-note {
+  position: absolute;
+  z-index: 4;
+  max-width: 15rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 1.2rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.floating-note.one {
+  top: 12%;
+  left: 2%;
+  transform: rotate(-5deg);
+  border-bottom-right-radius: 0.2rem;
+}
+
+.floating-note.two {
+  bottom: 12%;
+  right: 4%;
+  transform: rotate(4deg);
+  border-top-left-radius: 0.2rem;
+}
+
+/* ---------- Cards ---------- */
+.garden-card {
+  position: relative;
+  display: block;
+  border-radius: 1.4rem;
+  padding: 1.5rem;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--card-accent, var(--accent)) 10%, var(--background)), var(--background));
+  border: 1px solid var(--border);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.garden-card:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--border));
+  box-shadow: 0 22px 46px -30px color-mix(in srgb, var(--card-accent, var(--accent)) 60%, transparent);
+}
+
+.garden-card::after {
+  content: "";
+  position: absolute;
+  width: 3.4rem;
+  height: 3.4rem;
+  right: -1rem;
+  bottom: -1rem;
+  border-radius: 48% 52% 62% 38%;
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 32%, transparent);
+  filter: blur(2px);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.kind-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.18rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--pill-accent, var(--accent)) 15%, transparent);
+  color: var(--pill-accent, var(--accent));
+  border: 1px solid color-mix(in srgb, var(--pill-accent, var(--accent)) 30%, transparent);
+}
+
+.kind-seed { --pill-accent: var(--tangerine); }
+.kind-note { --pill-accent: var(--violet); }
+.kind-evergreen { --pill-accent: var(--teal); }
+
+/* ---------- Links and marginalia ---------- */
+.wikilink {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+
+.marginalia {
+  font-family: var(--font-accent);
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+/* ---------- Timeline ---------- */
+.timeline {
+  position: relative;
+  padding-inline-start: 1.8rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: 0.4rem;
+  inset-inline-start: 0.28rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(var(--coral), var(--violet), var(--teal));
+  opacity: 0.7;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.66rem;
+  top: 0.62rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--background);
+  border: 2px solid var(--accent);
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .ambient-art, header, footer, .no-print, .progress-container { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  main { max-width: none !important; padding: 0 !important; }
+  .paper-card, .garden-card { box-shadow: none !important; border-color: #ddd !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Your Name",
+  "nameZh": "你的名字",
+  "monogram": "Y",
+  "role": "Curious Mind / Maker / Lifelong Learner",
+  "taglineEn": "A living digital garden",
+  "taglineZh": "一个持续生长的数字空间",
+  "intro": "这里是你的名字的个人数字空间。思想、笔记、项目与探索在此相遇，并随着时间慢慢生长。",
+  "introShort": "收集想法，连接知识，慢慢生长。",
+  "location": "[请填写城市]",
+  "email": "hello@example.com",
+  "availability": "开放交流 / 合作（占位）",
+  "socials": [
+    { "label": "GitHub", "url": "https://github.com/hellothankyousorry", "placeholder": false },
+    { "label": "Email", "url": "mailto:hello@example.com", "placeholder": true }
+  ],
+  "placeholderNotice": "本站示例资料使用占位符，请在 src/data/profile.json 与内容目录中替换。"
+}

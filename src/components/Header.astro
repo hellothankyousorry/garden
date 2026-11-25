@@ -1,0 +1,228 @@
+---
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import IconX from "@/assets/icons/IconX.svg";
+import profile from "@/data/profile.json";
+import { getAssetPath, stripBase } from "@/utils/withBase";
+import config from "@/config";
+
+const relativePath = stripBase(Astro.url.pathname).replace(/\/$/, "") || "/";
+const section = relativePath.split("/")[1] ?? "";
+
+const navItems = [
+  { href: getAssetPath("notes/"), label: "Notes", key: "notes" },
+  { href: getAssetPath("projects/"), label: "Projects", key: "projects" },
+  { href: getAssetPath("resume/"), label: "Resume", key: "resume" },
+  { href: getAssetPath("about/"), label: "About", key: "about" },
+  { href: getAssetPath("now/"), label: "Now", key: "now" },
+];
+---
+
+<a id="skip-to-content" href="#main-content" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="app-layout header-inner">
+    <a href={getAssetPath("")} class="brand" aria-label={`${profile.name} — home`}>
+      <span class="brand-mark">{profile.monogram}<i>.</i></span>
+      <span class="brand-name">{profile.name}</span>
+    </a>
+
+    <nav id="nav-menu" aria-label="Primary navigation" class="nav-wrap">
+      <button
+        id="menu-btn"
+        class="menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="menu-items"
+      >
+        <IconMenuDeep id="menu-icon" class="size-5" />
+        <IconX id="close-icon" class="hidden size-5" />
+      </button>
+
+      <ul id="menu-items" class="nav-list">
+        {navItems.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class:list={["nav-link", { active: section === item.key }]}
+              aria-current={section === item.key ? "page" : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href={getAssetPath("tags/")} class:list={["nav-link", { active: section === "tags" }]}>Tags</a>
+        </li>
+        <li class="nav-tools">
+          <a href={getAssetPath("search/")} class="icon-link" aria-label="Search the garden" title="Search">
+            <IconSearch class="size-5" />
+          </a>
+          {config.features.lightAndDarkMode && (
+            <button id="theme-btn" class="icon-link" type="button" aria-label="Toggle colour theme" title="Toggle theme">
+              <IconMoon class="size-5 dark:hidden" />
+              <IconSunHigh class="hidden size-5 dark:block" />
+            </button>
+          )}
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .skip-link {
+    position: absolute;
+    inset-inline-start: 1rem;
+    top: -5rem;
+    z-index: 60;
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    background: var(--foreground);
+    color: var(--background);
+    transition: top 160ms ease;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--background) 78%, transparent);
+    backdrop-filter: blur(18px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 4.3rem;
+    gap: 1rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    white-space: nowrap;
+  }
+  .brand-mark {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .brand-mark i { color: var(--accent); font-style: normal; }
+  .brand-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+  }
+  .nav-link {
+    position: relative;
+    font-size: 0.88rem;
+    color: var(--muted-foreground);
+    transition: color 180ms ease;
+  }
+  .nav-link::after {
+    content: "✦";
+    position: absolute;
+    inset-inline-start: 50%;
+    top: 1.1rem;
+    opacity: 0;
+    font-size: 0.55rem;
+    color: var(--accent);
+    transform: translateX(-50%);
+    transition: opacity 180ms ease;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--foreground); }
+  .nav-link.active::after { opacity: 1; }
+
+  .nav-tools { display: flex; align-items: center; gap: 0.25rem; }
+  .icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    color: var(--muted-foreground);
+    transition: color 180ms ease, background-color 180ms ease;
+  }
+  .icon-link:hover { color: var(--accent); background: var(--accent-soft); }
+
+  .menu-btn { display: none; color: var(--foreground); padding: 0.5rem; }
+
+  @media (max-width: 860px) {
+    .menu-btn { display: inline-flex; }
+    .nav-wrap { position: relative; }
+    .nav-list {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 0.9rem);
+      width: min(16rem, calc(100vw - 2.5rem));
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.35rem;
+      padding: 0.85rem;
+      border-radius: 1rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-art);
+    }
+    .nav-list:not(.mobile-open) { display: none; }
+    .nav-link { display: block; padding: 0.6rem 0.75rem; border-radius: 0.6rem; }
+    .nav-link:hover, .nav-link.active { background: var(--accent-soft); }
+    .nav-link::after { display: none; }
+    .nav-tools { border-top: 1px solid var(--border); margin-top: 0.4rem; padding-top: 0.4rem; }
+    .brand-name { display: none; }
+  }
+</style>
+
+<script>
+  function setupNav() {
+    const button = document.querySelector<HTMLButtonElement>("#menu-btn");
+    const list = document.querySelector<HTMLElement>("#menu-items");
+    if (!button || !list) return;
+
+    const openIcon = document.querySelector("#menu-icon");
+    const closeIcon = document.querySelector("#close-icon");
+    button.addEventListener("click", () => {
+      const open = !list.classList.contains("mobile-open");
+      list.classList.toggle("mobile-open", open);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      openIcon?.classList.toggle("hidden", open);
+      closeIcon?.classList.toggle("hidden", !open);
+    });
+
+    list.querySelectorAll("a").forEach(link =>
+      link.addEventListener("click", () => {
+        list.classList.remove("mobile-open");
+        button.setAttribute("aria-expanded", "false");
+        openIcon?.classList.remove("hidden");
+        closeIcon?.classList.add("hidden");
+      })
+    );
+  }
+  setupNav();
+  document.addEventListener("astro:after-swap", setupNav);
+
+  const skip = document.querySelector<HTMLAnchorElement>("#skip-to-content");
+  skip?.addEventListener("click", () => {
+    const main = document.querySelector<HTMLElement>("#main-content");
+    if (!main) return;
+    main.setAttribute("tabindex", "-1");
+    main.focus();
+  });
+</script>

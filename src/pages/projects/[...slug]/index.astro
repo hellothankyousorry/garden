@@ -1,0 +1,146 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import { getPublishedNotes } from "@/utils/knowledge";
+import { BASE_PATH } from "@/site.config";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map(project => ({ params: { slug: project.id }, props: { id: project.id } }));
+}
+
+const { id } = Astro.props;
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+const project = projects.find(item => item.id === id);
+if (!project) return Astro.rewrite("/404");
+
+const { Content } = await render(project);
+const {
+  title, description, cover, status, stack, links, relatedNotes, pubDatetime, modDatetime, tags,
+} = project.data;
+const notes = await getPublishedNotes();
+const linkedNotes = notes.filter(note => relatedNotes.includes(note.id));
+const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂停" }[status];
+const date = (modDatetime ?? pubDatetime).toLocaleDateString("zh-CN", {
+  year: "numeric", month: "long", timeZone: "UTC",
+});
+---
+
+<Layout page="projects" title={`${title} — Projects`} description={description}>
+  <Header />
+  <main id="main-content" class="app-layout flex-1 pb-24 pt-10">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${BASE_PATH}/`}>Home</a><span aria-hidden="true">/</span>
+      <a href={`${BASE_PATH}/projects/`}>Projects</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{title}</span>
+    </nav>
+
+    <header class="project-header">
+      <p class="eyebrow">{date} · {statusLabel}</p>
+      <h1 class="display project-title">{title}</h1>
+      <p class="project-desc">{description}</p>
+    </header>
+
+    <div class:list={["project-cover", `cover-${cover}`]} aria-hidden="true">
+      <span class="cover-script">project notes</span>
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+    </div>
+
+    <div class="project-grid">
+      <aside class="project-aside">
+        <div class="aside-block">
+          <p class="eyebrow">Stack</p>
+          <div class="chips">{stack.map(item => <span>{item}</span>)}</div>
+        </div>
+        {
+          links.length > 0 && (
+            <div class="aside-block">
+              <p class="eyebrow">Links</p>
+              <ul>
+                {links.map(link => (
+                  <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a></li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="aside-block">
+          <p class="eyebrow">Tags</p>
+          <div class="chips">{tags.map(tag => <span>#{tag}</span>)}</div>
+        </div>
+      </aside>
+
+      <article class="app-prose project-body prose-layout">
+        <Content />
+      </article>
+    </div>
+
+    {
+      linkedNotes.length > 0 && (
+        <section class="mt-16">
+          <p class="eyebrow">Knowledge behind this project</p>
+          <h2 class="section-title mt-2 mb-6">相关的知识</h2>
+          <div class="grid gap-4 md:grid-cols-3">
+            {linkedNotes.map((note, index) => <NoteCard note={note} index={index} />)}
+          </div>
+        </section>
+      )
+    }
+
+    <a class="back-link" href={`${BASE_PATH}/projects/`}>← 返回全部项目</a>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); }
+  .breadcrumb a { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .project-header { max-width: 52rem; margin: 3rem auto 2.5rem; }
+  .project-title { margin-top: 1rem; font-size: clamp(3rem, 8vw, 6rem); }
+  .project-desc { margin-top: 1.2rem; font-size: 1.05rem; line-height: 1.75; color: var(--muted-foreground); }
+
+  .project-cover {
+    position: relative;
+    overflow: hidden;
+    min-height: 18rem;
+    border-radius: 1.8rem;
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    box-shadow: var(--shadow-art);
+  }
+  .project-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 20%, rgb(255 255 255 / 0.55), transparent 55%);
+  }
+  .cover-script { position: absolute; z-index: 2; bottom: 1.5rem; right: 2rem; color: #fff; font-family: var(--font-accent); font-size: 3rem; }
+  .orb { position: absolute; border-radius: 48% 52% 34% 66%; mix-blend-mode: screen; opacity: 0.7; }
+  .orb-a { width: 22rem; height: 22rem; left: -3rem; top: -8rem; background: var(--c3); }
+  .orb-b { width: 16rem; height: 16rem; right: 15%; bottom: -8rem; background: var(--c4); }
+
+  .project-grid { display: grid; gap: 3rem; margin-top: 3.5rem; align-items: start; }
+  .project-body { width: 100%; }
+  .project-body :global(h2) { font-family: var(--font-display); font-size: 1.9rem; margin-top: 2.6rem; }
+  .aside-block { padding-block: 1rem; border-bottom: 1px solid var(--border); }
+  .aside-block ul { display: grid; gap: 0.5rem; margin-top: 0.7rem; font-size: 0.85rem; }
+  .aside-block a { color: var(--accent); text-decoration: underline dotted; text-underline-offset: 4px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+  .chips span { padding: 0.2rem 0.6rem; border: 1px solid var(--border); border-radius: 999px; font-size: 0.72rem; color: var(--muted-foreground); }
+  .back-link { display: inline-block; margin-top: 3rem; font-size: 0.85rem; color: var(--accent); }
+
+  .cover-coral { --c1:#f7a9a0; --c2:#e5667f; --c3:#ffd07b; --c4:#c06bd0; }
+  .cover-violet { --c1:#b6a4e8; --c2:#6e68c9; --c3:#f4a6cf; --c4:#66c7d9; }
+  .cover-tangerine { --c1:#ffcb8e; --c2:#ee824f; --c3:#ff8fb0; --c4:#f6e27a; }
+  .cover-teal { --c1:#9cded4; --c2:#3c9f9a; --c3:#ffd39b; --c4:#7ba6e8; }
+  .cover-sky { --c1:#a9d6f5; --c2:#5a8fd1; --c3:#f3acd4; --c4:#8fe0d4; }
+  .cover-rose { --c1:#f6b8cd; --c2:#cf5f8f; --c3:#ffd29b; --c4:#9b89dc; }
+
+  @media (min-width: 1024px) {
+    .project-grid { grid-template-columns: 14rem minmax(0, 1fr); }
+    .project-aside { position: sticky; top: 6rem; }
+  }
+</style>

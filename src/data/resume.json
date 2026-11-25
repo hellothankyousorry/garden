@@ -1,0 +1,45 @@
+{
+  "headline": "Curriculum Vitae",
+  "headlineZh": "履历与轨迹",
+  "summary": "请用 2–3 句话概括你的背景与关注方向。此处为占位文本，不会自动替换为真实经历。",
+  "groups": [
+    {
+      "title": "Education / 教育",
+      "items": [
+        {
+          "period": "20XX — 20XX",
+          "title": "[学位 / 专业]",
+          "org": "[学校名称]",
+          "detail": "占位内容：请替换为你的教育经历。"
+        }
+      ]
+    },
+    {
+      "title": "Experience / 经历",
+      "items": [
+        {
+          "period": "20XX — Present",
+          "title": "[职位 / 角色]",
+          "org": "[机构名称]",
+          "detail": "占位内容：请替换为你的工作或研究经历。"
+        }
+      ]
+    },
+    {
+      "title": "Research & Projects / 研究与项目",
+      "items": [
+        {
+          "period": "20XX",
+          "title": "[项目 / 研究名称]",
+          "org": "[类型 / 合作方]",
+          "detail": "占位内容：可链接到本项目站点中的项目详情页。"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    { "category": "Writing / 写作", "items": ["Markdown", "Technical writing", "Note-taking"] },
+    { "category": "Building / 构建", "items": ["TypeScript", "Astro", "Web design"] },
+    { "category": "Thinking / 思考", "items": ["Research", "Systems thinking", "Curiosity"] }
+  ]
+}

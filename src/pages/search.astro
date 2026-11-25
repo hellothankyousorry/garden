@@ -1,0 +1,83 @@
+---
+import "@pagefind/default-ui/css/ui.css";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getAssetPath } from "@/utils/withBase";
+
+const bundlePath = getAssetPath("pagefind/");
+---
+
+<Layout page="search" title="Search — A Living Garden" description="搜索花园中的笔记与项目。">
+  <Header />
+  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+    <p class="eyebrow">Find a thread</p>
+    <h1 class="display page-title">Search<span class="accent-script title-script">look around</span></h1>
+    <p class="hand-cn page-title-cn">在花园里找一条线索</p>
+
+    <div id="pagefind-search" class="search-panel" data-bundle-path={bundlePath} transition:persist></div>
+    <p class="dev-hint">静态搜索索引会在生产构建后生成；开发模式下请运行 npm run build 后再查看结果。</p>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-title { position: relative; margin-top: 0.7rem; font-size: clamp(4rem, 11vw, 8rem); }
+  .title-script { position: absolute; right: -1rem; bottom: -0.2em; font-size: clamp(1.8rem, 4vw, 3rem); transform: rotate(-6deg); white-space: nowrap; }
+  .page-title-cn { margin-top: 1.5rem; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--accent); }
+  .search-panel {
+    margin-top: 4rem;
+    padding: 1.5rem;
+    border-radius: 1.4rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    box-shadow: var(--shadow-art);
+  }
+  .dev-hint { margin-top: 1rem; font-size: 0.72rem; color: var(--muted-foreground); }
+
+  #pagefind-search {
+    --pagefind-ui-font: var(--font-app);
+    --pagefind-ui-text: var(--foreground);
+    --pagefind-ui-background: var(--background);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-tag: var(--accent-soft);
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-border-radius: 0.9rem;
+  }
+  #pagefind-search :global(.pagefind-ui__result-title a) {
+    color: var(--accent);
+    text-decoration: underline dotted;
+    text-underline-offset: 4px;
+  }
+</style>
+
+<script>
+  function initSearch() {
+    const element = document.querySelector<HTMLElement>("#pagefind-search");
+    const bundlePath = element?.dataset.bundlePath;
+    if (!element || !bundlePath || element.querySelector("form")) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const idle = window.requestIdleCallback ?? (cb => setTimeout(cb, 1));
+
+    idle(async () => {
+      // @ts-expect-error -- Pagefind UI ships no bundled types.
+      const { PagefindUI } = await import("@pagefind/default-ui");
+      const search = new PagefindUI({
+        element: "#pagefind-search",
+        bundlePath,
+        showImages: false,
+        showSubResults: true,
+        processTerm: (term: string) => {
+          params.set("q", term);
+          history.replaceState(history.state, "", `?${params.toString()}`);
+          return term;
+        },
+      });
+      const query = params.get("q");
+      if (query) search.triggerSearch(query);
+    });
+  }
+  initSearch();
+  document.addEventListener("astro:after-swap", initSearch);
+</script>

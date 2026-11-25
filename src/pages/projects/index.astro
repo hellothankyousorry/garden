@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getPublishedProjects } from "@/utils/knowledge";
+
+const projects = await getPublishedProjects();
+const featured = projects.filter(project => project.data.featured);
+const others = projects.filter(project => !project.data.featured);
+---
+
+<Layout page="projects" title="Projects — A Living Garden" description="实践、作品与正在进行的实验。">
+  <Header />
+  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+    <div class="projects-heading">
+      <div>
+        <p class="eyebrow">Made with curiosity</p>
+        <h1 class="display page-title">Projects<span class="accent-script title-script">selected work</span></h1>
+        <p class="hand-cn page-title-cn">实践与作品</p>
+        <p class="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground">
+          每个项目都有自己的入口与形状，但共享同一种花园语言。这里的示例项目用于展示结构，请替换为你的真实实践。
+        </p>
+      </div>
+      <span class="accent-script hidden text-4xl lg:block" aria-hidden="true">made & making</span>
+    </div>
+
+    {
+      featured.length > 0 && (
+        <section class="mt-16" aria-labelledby="featured-projects">
+          <h2 id="featured-projects" class="eyebrow mb-5">Featured</h2>
+          <div class="grid gap-7 lg:grid-cols-2">
+            {featured.map((project, index) => <ProjectCard project={project} index={index} />)}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      others.length > 0 && (
+        <section class="mt-20" aria-labelledby="other-projects">
+          <h2 id="other-projects" class="eyebrow mb-5">More experiments</h2>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {others.map((project, index) => <ProjectCard project={project} index={index + 2} compact />)}
+          </div>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .projects-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+  .page-title { position: relative; margin-top: 0.6rem; font-size: clamp(3.5rem, 10vw, 7rem); }
+  .title-script { position: absolute; right: 0; bottom: -0.35em; font-size: clamp(1.8rem, 4vw, 3rem); transform: rotate(5deg); white-space: nowrap; }
+  .page-title-cn { margin-top: 1.6rem; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--accent); }
+</style>

@@ -1,0 +1,189 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import { getPublishedNotes } from "@/utils/knowledge";
+import { KIND_META, BASE_PATH } from "@/site.config";
+import { slugifyStr } from "@/utils/slugify";
+
+const notes = await getPublishedNotes();
+const tags = [...new Set(notes.flatMap(note => note.data.tags))].sort();
+const counts = {
+  seed: notes.filter(note => note.data.kind === "seed").length,
+  note: notes.filter(note => note.data.kind === "note").length,
+  evergreen: notes.filter(note => note.data.kind === "evergreen").length,
+};
+const kinds = ["all", "seed", "note", "evergreen"] as const;
+---
+
+<Layout page="notes" title="Notes — A Living Garden" description="种子、笔记与常青思考，按自己的节奏慢慢生长。">
+  <Header />
+  <main id="main-content" class="app-layout flex-1 pb-20 pt-14">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">The garden · 笔记</p>
+        <h1 class="display page-title">Notes<span class="accent-script title-script">thoughts in bloom</span></h1>
+        <p class="hand-cn page-title-cn">让想法慢慢长成体系</p>
+        <p class="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground">
+          这里的每一篇都在生长。种子记录问题，笔记整理思考，常青内容会被反复修订。
+          沿着内部链接走，你会遇到意料之外的相邻。
+        </p>
+      </div>
+      <a class="search-link glass" href={`${BASE_PATH}/search/`}>
+        <span aria-hidden="true">⌕</span> 搜索全部内容
+      </a>
+    </div>
+
+    <div class="toolbar" role="group" aria-label="Filter notes">
+      <div class="filters">
+        {kinds.map(kind => (
+          <button
+            type="button"
+            class:list={["filter-btn", { active: kind === "all" }]}
+            data-filter={kind}
+            aria-pressed={kind === "all"}
+          >
+            {kind === "all" ? "全部" : KIND_META[kind].zh}
+            <sup>{kind === "all" ? notes.length : counts[kind]}</sup>
+          </button>
+        ))}
+      </div>
+      <label class="local-search">
+        <span class="sr-only">Filter by title</span>
+        <input id="note-filter" type="search" placeholder="筛选标题或关键词…" autocomplete="off" />
+      </label>
+    </div>
+
+    <div class="tag-cloud" aria-label="Browse by tag">
+      <span class="eyebrow">Tags</span>
+      {tags.map(tag => (
+        <a href={`${BASE_PATH}/tags/${slugifyStr(tag)}/`}>#{tag}</a>
+      ))}
+    </div>
+
+    <div id="note-grid" class="note-grid">
+      {notes.map((note, index) => (
+        <div class="note-item" data-kind={note.data.kind} data-search={`${note.data.title} ${note.data.description} ${note.data.tags.join(" ")}`.toLowerCase()}>
+          <NoteCard note={note} featured={index === 0 && note.data.featured} index={index} />
+        </div>
+      ))}
+    </div>
+    <p id="empty-state" class="empty-state" hidden>没有找到匹配的笔记。换个词或类型试试。</p>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .page-title {
+    position: relative;
+    margin-top: 0.6rem;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+  .title-script {
+    position: absolute;
+    right: -1rem;
+    bottom: -0.35em;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    transform: rotate(-6deg);
+    white-space: nowrap;
+  }
+  .page-title-cn { margin-top: 1.6rem; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--accent); }
+  .search-link {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.75rem 1.2rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--foreground);
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 4.5rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .filter-btn {
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted-foreground);
+    font-size: 0.82rem;
+    transition: all 180ms ease;
+  }
+  .filter-btn sup { font-size: 0.6rem; margin-left: 0.2rem; }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .local-search input {
+    width: min(17rem, 70vw);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: 0.82rem;
+  }
+  .tag-cloud { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; margin-block: 1.5rem 2rem; }
+  .tag-cloud a { font-size: 0.76rem; color: var(--muted-foreground); text-decoration: underline dotted; text-underline-offset: 4px; }
+  .tag-cloud a:hover { color: var(--accent); }
+  .note-grid { display: grid; gap: 1.4rem; }
+  .empty-state { padding: 4rem 0; text-align: center; color: var(--muted-foreground); }
+  @media (min-width: 720px) { .note-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1180px) { .note-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>
+
+<script>
+  function initNoteFilters() {
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-btn"));
+    const input = document.querySelector<HTMLInputElement>("#note-filter");
+    const items = Array.from(document.querySelectorAll<HTMLElement>(".note-item"));
+    const empty = document.querySelector<HTMLElement>("#empty-state");
+    let activeKind = "all";
+
+    const apply = () => {
+      const term = (input?.value ?? "").trim().toLowerCase();
+      let visible = 0;
+      items.forEach(item => {
+        const kindOk = activeKind === "all" || item.dataset.kind === activeKind;
+        const termOk = !term || (item.dataset.search ?? "").includes(term);
+        item.hidden = !(kindOk && termOk);
+        if (kindOk && termOk) visible += 1;
+      });
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        activeKind = button.dataset.filter ?? "all";
+        buttons.forEach(btn => {
+          const active = btn === button;
+          btn.classList.toggle("active", active);
+          btn.setAttribute("aria-pressed", String(active));
+        });
+        apply();
+      });
+    });
+    input?.addEventListener("input", apply);
+  }
+  initNoteFilters();
+  document.addEventListener("astro:after-swap", initNoteFilters);
+</script>

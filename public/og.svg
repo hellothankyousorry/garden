@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fffaf5"/>
+      <stop offset="100%" stop-color="#fbe9e6"/>
+    </linearGradient>
+    <linearGradient id="blob" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef6f8f" stop-opacity="0.82"/>
+      <stop offset="100%" stop-color="#8a74ce" stop-opacity="0.35"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="38"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <g filter="url(#soft)" opacity="0.85">
+    <ellipse cx="960" cy="130" rx="260" ry="190" fill="url(#blob)"/>
+    <ellipse cx="190" cy="540" rx="300" ry="190" fill="#3aa99e" opacity="0.35"/>
+  </g>
+  <path d="M80 470C300 200 470 520 700 260S1030 240 1130 90" fill="none" stroke="#d4477a" stroke-width="2" opacity="0.5"/>
+  <circle cx="700" cy="260" r="12" fill="#8a74ce"/>
+  <text x="90" y="220" font-family="Georgia, serif" font-size="118" font-weight="700" fill="#2c263d">A Living</text>
+  <text x="90" y="340" font-family="Georgia, serif" font-size="118" font-style="italic" fill="#d4477a">Garden</text>
+  <text x="96" y="430" font-family="sans-serif" font-size="34" letter-spacing="8" fill="#6d6276">NOTES · PROJECTS · THOUGHTS</text>
+</svg>

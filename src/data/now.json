@@ -1,0 +1,29 @@
+{
+  "updated": "2026-11-25",
+  "note": "此页面为示例内容，请在 src/data/now.json 中替换为你的当前状态。",
+  "headline": "Now",
+  "headlineZh": "此刻",
+  "intro": "这里记录此刻正在关注、学习和创造的事物。它会比 About 更频繁地更新。",
+  "items": [
+    {
+      "kind": "learning",
+      "title": "探索知识花园的内容组织方式",
+      "detail": "尝试让笔记、灵感与项目之间产生更自然的连接。"
+    },
+    {
+      "kind": "building",
+      "title": "搭建这个个人数字空间",
+      "detail": "把设计、写作与工程实践放在同一个地方慢慢打磨。"
+    },
+    {
+      "kind": "reading",
+      "title": "[正在阅读的书 / 文章]",
+      "detail": "占位内容：请替换为近期阅读。"
+    },
+    {
+      "kind": "curious",
+      "title": "[当前好奇的问题]",
+      "detail": "占位内容：请替换为一个真实的问题。"
+    }
+  ]
+}

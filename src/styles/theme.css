@@ -1,0 +1,157 @@
+/* Design tokens for the Living Garden.
+   Four visual ideas share one system:
+   - elegance/dream  -> paper, ink, serif display, translucent layers
+   - playfulness     -> saturated accent collisions, rotated details
+   - experiment      -> asymmetric layout, oversized type, mixed scripts
+   - fluidity        -> organic SVG shapes, curves, soft motion */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-coral: var(--coral);
+  --color-tangerine: var(--tangerine);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
+  --color-sky: var(--sky);
+  --color-rose: var(--rose);
+  --font-app: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-accent: "Allura", cursive;
+  --font-hand-cn: "Long Cang", "STKaiti", cursive;
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #fffaf5;
+  --background-alt: #fdf1ea;
+  --foreground: #2c263d;
+  --accent: #d4477a;
+  --accent-soft: #fde3ec;
+  --accent-foreground: #fffaf5;
+
+  --muted: #f3e9e2;
+  --muted-foreground: #6d6276;
+  --border: #e9dcd6;
+
+  --coral: #ef6f8f;
+  --tangerine: #ee9a55;
+  --violet: #8a74ce;
+  --teal: #3aa99e;
+  --sky: #5c9fd6;
+  --rose: #df6e9a;
+
+  --glass: rgb(255 253 249 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.68);
+  --shadow-art: 0 24px 60px -32px rgb(71 44 74 / 0.42);
+  --ink-soft: rgb(44 38 61 / 0.72);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: #171424;
+  --background-alt: #221b33;
+  --foreground: #f5eef4;
+  --accent: #ff92b5;
+  --accent-soft: #3b2540;
+  --accent-foreground: #231525;
+
+  --muted: #2f2841;
+  --muted-foreground: #c6b9d1;
+  --border: #403653;
+
+  --coral: #ff8fae;
+  --tangerine: #f7b779;
+  --violet: #b7a5f4;
+  --teal: #6fd4c6;
+  --sky: #8cc4f3;
+  --rose: #f59ec0;
+
+  --glass: rgb(31 25 46 / 0.7);
+  --glass-border: rgb(255 255 255 / 0.1);
+  --shadow-art: 0 24px 70px -30px rgb(0 0 0 / 0.75);
+  --ink-soft: rgb(245 238 244 / 0.74);
+}
+
+/* Each section has its own accent personality while sharing the same system. */
+[data-page="notes"] { --accent: var(--violet); --accent-soft: color-mix(in srgb, var(--violet) 14%, var(--background)); }
+[data-page="projects"] { --accent: var(--tangerine); --accent-soft: color-mix(in srgb, var(--tangerine) 16%, var(--background)); }
+[data-page="resume"] { --accent: var(--teal); --accent-soft: color-mix(in srgb, var(--teal) 14%, var(--background)); }
+[data-page="about"] { --accent: var(--rose); --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background)); }
+[data-page="now"] { --accent: var(--sky); --accent-soft: color-mix(in srgb, var(--sky) 14%, var(--background)); }
+[data-page="tags"] { --accent: var(--rose); --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background)); }
+
+[data-theme="dark"][data-page="notes"] { --accent: var(--violet); }
+[data-theme="dark"][data-page="projects"] { --accent: var(--tangerine); }
+[data-theme="dark"][data-page="resume"] { --accent: var(--teal); }
+[data-theme="dark"][data-page="about"] { --accent: var(--rose); }
+[data-theme="dark"][data-page="now"] { --accent: var(--sky); }
+[data-theme="dark"][data-page="tags"] { --accent: var(--rose); }
+
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-app);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+/* Abstract ambient layer — decorative only, never intercepts input. */
+.ambient-art {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.75;
+}
+
+[data-theme="dark"] .ambient-art {
+  opacity: 0.42;
+  filter: saturate(1.15);
+}
+
+.site-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.ambient-art .blob {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.ambient-art .blob:nth-of-type(2) { animation-duration: 32s; animation-delay: -8s; }
+.ambient-art .blob:nth-of-type(3) { animation-duration: 38s; animation-delay: -14s; }
+
+@keyframes drift {
+  from { transform: translate3d(-12px, 8px, 0) rotate(-3deg) scale(1); }
+  to   { transform: translate3d(18px, -14px, 0) rotate(4deg) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-art .blob { animation: none !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

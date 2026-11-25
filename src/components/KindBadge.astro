@@ -1,0 +1,12 @@
+---
+import { KIND_META, type NoteKind } from "@/site.config";
+
+type Props = { kind: NoteKind; compact?: boolean };
+const { kind, compact = false } = Astro.props;
+const meta = KIND_META[kind];
+---
+
+<span class:list={["kind-pill", `kind-${kind}`]}>
+  <span aria-hidden="true">{meta.glyph}</span>
+  <span>{compact ? meta.zh : `${meta.label} · ${meta.zh}`}</span>
+</span>

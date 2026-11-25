@@ -1,0 +1,301 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "@/layouts/PostLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import KindBadge from "@/components/KindBadge.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import {
+  getPublishedNotes,
+  getPublishedProjects,
+  getBacklinks,
+  getRelatedNotes,
+  noteUrl,
+  projectUrl,
+} from "@/utils/knowledge";
+import { KIND_META, BASE_PATH } from "@/site.config";
+import { slugifyStr } from "@/utils/slugify";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("posts", ({ data }) => !data.draft);
+  return notes.map(note => ({ params: { slug: note.id }, props: { id: note.id } }));
+}
+
+const { id } = Astro.props;
+const notes = await getPublishedNotes();
+const note = notes.find(item => item.id === id);
+if (!note) return Astro.rewrite("/404");
+
+const { Content, headings } = await render(note);
+const { title, description, kind, tags, pubDatetime, modDatetime, related } = note.data;
+const meta = KIND_META[kind];
+const backlinks = getBacklinks(notes, note.id);
+const relatedNotes = getRelatedNotes(note, notes, 3);
+const referencingProjects = (await getPublishedProjects()).filter(project =>
+  project.data.relatedNotes.includes(note.id)
+);
+const toc = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<PostLayout
+  page="notes"
+  title={`${title} — Notes`}
+  description={description}
+  pubDatetime={pubDatetime}
+  modDatetime={modDatetime}
+>
+  <Header />
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <main id="main-content" class="app-layout flex-1 pb-20 pt-10" data-pagefind-body>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${BASE_PATH}/`}>Home</a><span aria-hidden="true">/</span>
+      <a href={`${BASE_PATH}/notes/`}>Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{title}</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="header-meta">
+        <KindBadge kind={kind} />
+        <span class="accent-script header-script">{meta.label}</span>
+      </div>
+      <h1 class="display note-title">{title}</h1>
+      <p class="note-desc">{description}</p>
+      <div class="note-dates">
+        <span>写于 <time datetime={pubDatetime.toISOString()}>{formatDate(pubDatetime)}</time></span>
+        {modDatetime && <span>修订于 <time datetime={modDatetime.toISOString()}>{formatDate(modDatetime)}</time></span>}
+      </div>
+    </header>
+
+    <div class="reading-grid">
+      <aside class="reading-aside" aria-label="Note context">
+        {
+          toc.length > 0 && (
+            <div class="aside-block">
+              <p class="eyebrow">On this page</p>
+              <ul>
+                {toc.map(heading => (
+                  <li class:list={["toc-item", { "toc-sub": heading.depth === 3 }]}>
+                    <a href={`#${heading.slug}`}>{heading.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="aside-block">
+          <p class="eyebrow">Growth stage</p>
+          <p class="aside-text">{meta.zh} · {meta.description}</p>
+        </div>
+        <div class="aside-block">
+          <p class="eyebrow">Tags</p>
+          <div class="aside-tags">
+            {tags.map(tag => <a href={`${BASE_PATH}/tags/${slugifyStr(tag)}/`}>#{tag}</a>)}
+          </div>
+        </div>
+      </aside>
+
+      <article id="article" class="app-prose note-body prose-layout">
+        <Content />
+      </article>
+    </div>
+
+    <div class="note-footer" data-pagefind-ignore>
+      {
+        related.length > 0 && (
+          <p class="related-label">手动关联：{related.join(" · ")}</p>
+        )
+      }
+
+      {
+        (backlinks.length > 0 || referencingProjects.length > 0) && (
+          <section class="connection-block">
+            <p class="eyebrow">Connections · 连接</p>
+            <div class="connection-grid">
+              {backlinks.map(item => (
+                <a class="connection-link" href={noteUrl(item.id)}>
+                  <span aria-hidden="true">↖</span>
+                  <span><small>引用了这篇</small>{item.data.title}</span>
+                </a>
+              ))}
+              {referencingProjects.map(project => (
+                <a class="connection-link" href={projectUrl(project.id)}>
+                  <span aria-hidden="true">✦</span>
+                  <span><small>相关项目</small>{project.data.title}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        relatedNotes.length > 0 && (
+          <section class="mt-12">
+            <div class="mb-5 flex items-end justify-between">
+              <h2 class="section-title text-2xl">相关内容</h2>
+              <span class="accent-script text-2xl" aria-hidden="true">keep wandering</span>
+            </div>
+            <div class="grid gap-4 md:grid-cols-3">
+              {relatedNotes.map((item, index) => <NoteCard note={item} index={index} />)}
+            </div>
+          </section>
+        )
+      }
+
+      <a class="back-link" href={`${BASE_PATH}/notes/`}>← 返回全部笔记</a>
+    </div>
+  </main>
+
+  <Footer />
+</PostLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+  .breadcrumb a { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .note-header { max-width: 48rem; margin: 3rem auto 3.5rem; }
+  .header-meta { display: flex; align-items: center; gap: 1rem; }
+  .header-script { font-size: 2.4rem; opacity: 0.85; }
+  .note-title {
+    margin-top: 1.4rem;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 1;
+  }
+  .note-desc { margin-top: 1.2rem; font-size: 1.05rem; line-height: 1.75; color: var(--muted-foreground); }
+  .note-dates { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.4rem; font-size: 0.75rem; color: var(--muted-foreground); }
+
+  .reading-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  .reading-aside { display: none; }
+  .note-body { width: 100%; }
+  .note-body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    margin-top: 2.6rem;
+  }
+  .note-body :global(h3) { font-family: var(--font-display); }
+  .note-body :global(blockquote) {
+    border-inline-start: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 7%, transparent);
+    padding: 0.5rem 1.2rem;
+    border-radius: 0 0.8rem 0.8rem 0;
+    opacity: 1;
+  }
+  .aside-block { padding-block: 1rem; border-bottom: 1px solid var(--border); }
+  .aside-block ul { margin-top: 0.7rem; display: grid; gap: 0.5rem; }
+  .toc-item a { font-size: 0.8rem; color: var(--muted-foreground); }
+  .toc-item a:hover { color: var(--accent); }
+  .toc-sub { padding-inline-start: 0.9rem; }
+  .aside-text { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.6; color: var(--muted-foreground); }
+  .aside-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; }
+  .aside-tags a { font-size: 0.72rem; color: var(--accent); text-decoration: underline dotted; text-underline-offset: 3px; }
+
+  .note-footer { max-width: 72rem; margin: 4rem auto 0; }
+  .related-label { font-size: 0.75rem; color: var(--muted-foreground); }
+  .connection-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+    background: var(--accent-soft);
+  }
+  .connection-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+  .connection-link {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    border-radius: 0.8rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .connection-link small { display: block; font-size: 0.65rem; color: var(--muted-foreground); }
+  .back-link { display: inline-block; margin-top: 3rem; font-size: 0.85rem; color: var(--accent); }
+
+  #reading-progress {
+    position: sticky;
+    top: 4.3rem;
+    z-index: 35;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, var(--coral), var(--violet), var(--teal));
+  }
+
+  @media (min-width: 1024px) {
+    .reading-grid { grid-template-columns: 15rem minmax(0, 1fr); }
+    .reading-aside { display: block; position: sticky; top: 6rem; }
+  }
+</style>
+
+<script>
+  function setupNotePage() {
+    const progress = document.querySelector<HTMLElement>("#reading-progress");
+    const update = () => {
+      if (!progress) return;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = `${height > 0 ? (window.scrollY / height) * 100 : 0}%`;
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+
+    document.querySelectorAll<HTMLElement>("#article :is(h2, h3, h4)").forEach(heading => {
+      if (!heading.id) return;
+      const link = document.createElement("a");
+      link.href = `#${heading.id}`;
+      link.className = "heading-anchor";
+      link.textContent = "#";
+      link.setAttribute("aria-label", `Link to ${heading.textContent}`);
+      heading.appendChild(link);
+    });
+
+    document.querySelectorAll<HTMLPreElement>("#article pre").forEach(pre => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "copy-code";
+      button.textContent = "Copy";
+      button.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(pre.querySelector("code")?.textContent ?? "");
+        button.textContent = "Copied";
+        setTimeout(() => (button.textContent = "Copy"), 1200);
+      });
+      pre.appendChild(button);
+    });
+  }
+  setupNotePage();
+  document.addEventListener("astro:after-swap", setupNotePage);
+</script>
+
+<style is:global>
+  .heading-anchor {
+    margin-inline-start: 0.5rem;
+    font-size: 0.7em;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    opacity: 0;
+  }
+  h2:hover .heading-anchor, h3:hover .heading-anchor, .heading-anchor:focus-visible { opacity: 1; }
+  .copy-code {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.7rem;
+    color: var(--muted-foreground);
+    background: var(--background);
+  }
+  .copy-code:hover { color: var(--accent); }
+</style>

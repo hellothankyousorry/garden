@@ -1,0 +1,55 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import { getPublishedNotes } from "@/utils/knowledge";
+import { slugifyStr } from "@/utils/slugify";
+import { BASE_PATH } from "@/site.config";
+
+export async function getStaticPaths() {
+  const notes = await getPublishedNotes();
+  const tags = [...new Set(notes.flatMap(note => note.data.tags))];
+
+  return tags.map(tag => ({
+    params: { tag: slugifyStr(tag) },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const notes = (await getPublishedNotes()).filter(note => note.data.tags.includes(tag));
+---
+
+<Layout page="tags" title={`#${tag} — Notes`} description={`带有 ${tag} 标签的笔记。`}>
+  <Header />
+  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${BASE_PATH}/`}>Home</a><span aria-hidden="true">/</span>
+      <a href={`${BASE_PATH}/tags/`}>Tags</a><span aria-hidden="true">/</span>
+      <span aria-current="page">#{tag}</span>
+    </nav>
+
+    <div class="tag-heading">
+      <p class="eyebrow">Tagged</p>
+      <h1 class="display tag-title">#{tag}</h1>
+      <p class="accent-script tag-script">{notes.length} notes in this thread</p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {notes.map((note, index) => <NoteCard note={note} index={index} />)}
+    </div>
+
+    <a class="back-link" href={`${BASE_PATH}/tags/`}>← 全部标签</a>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); }
+  .breadcrumb a { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .tag-heading { margin: 3rem 0 4rem; }
+  .tag-title { font-size: clamp(3rem, 9vw, 6rem); }
+  .tag-script { margin-top: 0.8rem; font-size: clamp(1.8rem, 4vw, 3rem); }
+  .back-link { display: inline-block; margin-top: 3rem; color: var(--accent); font-size: 0.85rem; }
+</style>
