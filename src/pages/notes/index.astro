@@ -31,7 +31,7 @@ const kinds = ["all", "seed", "note", "evergreen"] as const;
           Notes<span class="accent-script title-script">thoughts in bloom</span>
         </h1>
         <p class="hand-cn page-title-cn">让想法慢慢长成体系</p>
-        <p class="text-muted-foreground mt-5 max-w-2xl text-sm leading-7">
+        <p class="lede mt-5 max-w-2xl">
           这里的每一篇都在生长。种子记录问题，笔记整理思考，常青内容会被反复修订。
           沿着内部链接走，你会遇到意料之外的相邻。
         </p>
@@ -154,12 +154,13 @@ const kinds = ["all", "seed", "note", "evergreen"] as const;
     gap: 0.5rem;
   }
   .filter-btn {
-    border-radius: 999px;
-    padding: 0.45rem 1rem;
+    border-radius: 3px 6px 4px 5px;
+    padding: 0.42rem 0.95rem;
     border: 1px solid var(--border);
     background: transparent;
     color: var(--muted-foreground);
-    font-size: 0.82rem;
+    font-family: var(--font-editorial);
+    font-size: 0.86rem;
     transition: all 180ms ease;
   }
   .filter-btn sup {

@@ -28,6 +28,9 @@
     sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
   --font-accent: "Allura", cursive;
+  --font-editorial:
+    "Playfair Display", "Songti SC", "Noto Serif CJK SC", "SimSun", Georgia,
+    serif;
   --font-hand-cn: "Long Cang", "STKaiti", cursive;
 }
 

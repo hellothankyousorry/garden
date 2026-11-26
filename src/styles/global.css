@@ -73,11 +73,32 @@
 }
 
 .eyebrow {
-  font-size: 0.7rem;
+  font-family: var(--font-editorial);
+  font-size: 0.92rem;
+  font-style: italic;
   font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
+  letter-spacing: 0.01em;
+  color: var(--accent);
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.4rem;
+  height: 1px;
+  margin-right: 0.55rem;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: 0.65;
+  transform: rotate(-8deg);
+}
+
+/* Editorial lede — introduction paragraphs share the display serif. */
+.lede {
+  font-family: var(--font-editorial);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--foreground) 84%, transparent);
 }
 
 .section-title {
@@ -258,24 +279,34 @@
   pointer-events: none;
 }
 
+/* Paper-slip type label, echoing the verb slips in the reference collage:
+   a small torn piece of paper laid on the card, not a UI badge. */
 .kind-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  border-radius: 999px;
-  padding: 0.18rem 0.7rem;
+  gap: 0.45rem;
+  border-radius: 2px 5px 3px 4px;
+  padding: 0.26rem 0.62rem 0.24rem;
+  font-family: var(--font-editorial);
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: color-mix(
-    in srgb,
-    var(--pill-accent, var(--accent)) 15%,
-    transparent
-  );
-  color: var(--pill-accent, var(--accent));
-  border: 1px solid
-    color-mix(in srgb, var(--pill-accent, var(--accent)) 30%, transparent);
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  box-shadow:
+    0 7px 14px -11px color-mix(in srgb, var(--foreground) 70%, transparent),
+    0 1px 0 color-mix(in srgb, var(--border) 55%, transparent);
+  transform: rotate(-1.5deg);
+}
+
+.kind-pill .kind-dot {
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: var(--pill-accent, var(--accent));
+  flex: none;
 }
 
 .kind-seed {
@@ -286,6 +317,11 @@
 }
 .kind-evergreen {
   --pill-accent: var(--teal);
+}
+
+/* Alternating cards lean the other way, as if laid down by hand. */
+.card-top .kind-pill:nth-child(even) {
+  transform: rotate(1.3deg);
 }
 
 /* ---------- Links and marginalia ---------- */
