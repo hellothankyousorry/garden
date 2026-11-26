@@ -1,5 +1,21 @@
 # Changelog — Living Garden
 
+## 2026-11-26 — 视觉参考图落地与工程收尾
+
+### 视觉
+
+- 根据用户提供的「imagine your website as a garden」手绘拼贴参考图，新增 `GardenVerbs.astro`：黄绿/青绿竖向色带、荧光粉手写 `a garden`、9 个白色纸片 garden verbs 标签、SVG 植物根系与放射连接线、橙色气泡；
+- 新增 `--chartreuse` / `--neon` 设计变量（浅色与深色各一套），抽象背景层增加第 4 个色块与更多连接线；
+- 修正首屏 `hello, curious one` 与 `Your Name` 叠字，桌面与手机分别调整位置；
+- DESIGN.md 增补「参考图转译」说明。
+
+### 工程
+
+- CI workflow 由 pnpm 统一为 npm（`npm ci`），Node 固定 22.23.4，超时放宽至 10 分钟；
+- 移除遗留的 `pnpm-lock.yaml` / `pnpm-workspace.yaml`，package.json 声明 `packageManager: npm@10.9.7`、重命名为 `living-garden` 并同步锁文件；
+- eslint 忽略 `dist_prev_*` 构建残留；全仓源码按 Prettier 规范格式化，`format:check` 通过；
+- 本地验证：lint / format / astro check / build / Pagefind 全部通过，28 页构建成功。
+
 ## 2026-11-25 — 整包改造 v1.0
 
 ### 选型
