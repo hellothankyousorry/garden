@@ -6,10 +6,15 @@ type Props = { project: ProjectEntry; index?: number; compact?: boolean };
 const { project, index = 0, compact = false } = Astro.props;
 const { title, description, cover, status, stack, pubDatetime } = project.data;
 const year = pubDatetime.getUTCFullYear();
-const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂停" }[status];
+const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂停" }[
+  status
+];
 ---
 
-<a class:list={["project-card", `cover-${cover}`, { compact }]} href={projectUrl(project.id)}>
+<a
+  class:list={["project-card", `cover-${cover}`, { compact }]}
+  href={projectUrl(project.id)}
+>
   <div class="cover" aria-hidden="true">
     <span class="orb orb-one"></span>
     <span class="orb orb-two"></span>
@@ -34,10 +39,16 @@ const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂�
     border: 1px solid var(--border);
     background: var(--background);
     box-shadow: var(--shadow-art);
-    transition: transform 280ms ease, box-shadow 280ms ease;
+    transition:
+      transform 280ms ease,
+      box-shadow 280ms ease;
   }
-  .project-card:nth-child(even) { transform: rotate(1deg); }
-  .project-card:hover { transform: translateY(-6px) rotate(-0.5deg); }
+  .project-card:nth-child(even) {
+    transform: rotate(1deg);
+  }
+  .project-card:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+  }
 
   .cover {
     position: relative;
@@ -49,7 +60,11 @@ const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂�
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 75% 20%, rgb(255 255 255 / 0.5), transparent 55%);
+    background: radial-gradient(
+      circle at 75% 20%,
+      rgb(255 255 255 / 0.5),
+      transparent 55%
+    );
   }
   .orb {
     position: absolute;
@@ -57,13 +72,44 @@ const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂�
     mix-blend-mode: screen;
     opacity: 0.72;
   }
-  .orb-one { width: 12rem; height: 12rem; left: -2rem; top: -3rem; background: var(--c3); }
-  .orb-two { width: 9rem; height: 9rem; right: 8%; bottom: -4rem; background: var(--c4); border-radius: 62% 38% 55% 45%; }
-  .project-index, .cover-script { position: absolute; z-index: 2; color: #fff; }
-  .project-index { left: 1.4rem; top: 1.1rem; font-family: var(--font-display); font-size: 2rem; font-weight: 700; }
-  .cover-script { right: 1.3rem; bottom: 0.8rem; font-family: var(--font-accent); font-size: 2rem; }
+  .orb-one {
+    width: 12rem;
+    height: 12rem;
+    left: -2rem;
+    top: -3rem;
+    background: var(--c3);
+  }
+  .orb-two {
+    width: 9rem;
+    height: 9rem;
+    right: 8%;
+    bottom: -4rem;
+    background: var(--c4);
+    border-radius: 62% 38% 55% 45%;
+  }
+  .project-index,
+  .cover-script {
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+  }
+  .project-index {
+    left: 1.4rem;
+    top: 1.1rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .cover-script {
+    right: 1.3rem;
+    bottom: 0.8rem;
+    font-family: var(--font-accent);
+    font-size: 2rem;
+  }
 
-  .body { padding: 1.4rem; }
+  .body {
+    padding: 1.4rem;
+  }
   .meta {
     display: flex;
     justify-content: space-between;
@@ -79,8 +125,17 @@ const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂�
     line-height: 1.15;
     color: var(--foreground);
   }
-  p { font-size: 0.88rem; line-height: 1.65; color: var(--muted-foreground); }
-  .stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
   .stack span {
     font-size: 0.68rem;
     padding: 0.2rem 0.55rem;
@@ -88,13 +143,47 @@ const statusLabel = { ongoing: "进行中", finished: "已完成", paused: "暂�
     border: 1px solid var(--border);
     color: var(--muted-foreground);
   }
-  .compact .cover { height: 8rem; }
-  .compact h3 { font-size: 1.25rem; }
+  .compact .cover {
+    height: 8rem;
+  }
+  .compact h3 {
+    font-size: 1.25rem;
+  }
 
-  .cover-coral { --c1:#f7a9a0; --c2:#e5667f; --c3:#ffd07b; --c4:#c06bd0; }
-  .cover-violet { --c1:#b6a4e8; --c2:#6e68c9; --c3:#f4a6cf; --c4:#66c7d9; }
-  .cover-tangerine { --c1:#ffcb8e; --c2:#ee824f; --c3:#ff8fb0; --c4:#f6e27a; }
-  .cover-teal { --c1:#9cded4; --c2:#3c9f9a; --c3:#ffd39b; --c4:#7ba6e8; }
-  .cover-sky { --c1:#a9d6f5; --c2:#5a8fd1; --c3:#f3acd4; --c4:#8fe0d4; }
-  .cover-rose { --c1:#f6b8cd; --c2:#cf5f8f; --c3:#ffd29b; --c4:#9b89dc; }
+  .cover-coral {
+    --c1: #f7a9a0;
+    --c2: #e5667f;
+    --c3: #ffd07b;
+    --c4: #c06bd0;
+  }
+  .cover-violet {
+    --c1: #b6a4e8;
+    --c2: #6e68c9;
+    --c3: #f4a6cf;
+    --c4: #66c7d9;
+  }
+  .cover-tangerine {
+    --c1: #ffcb8e;
+    --c2: #ee824f;
+    --c3: #ff8fb0;
+    --c4: #f6e27a;
+  }
+  .cover-teal {
+    --c1: #9cded4;
+    --c2: #3c9f9a;
+    --c3: #ffd39b;
+    --c4: #7ba6e8;
+  }
+  .cover-sky {
+    --c1: #a9d6f5;
+    --c2: #5a8fd1;
+    --c3: #f3acd4;
+    --c4: #8fe0d4;
+  }
+  .cover-rose {
+    --c1: #f6b8cd;
+    --c2: #cf5f8f;
+    --c3: #ffd29b;
+    --c4: #9b89dc;
+  }
 </style>

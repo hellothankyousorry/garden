@@ -16,15 +16,23 @@ const kindLabel = {
 const kindGlyph = { learning: "✦", building: "✳", reading: "❋", curious: "✧" };
 ---
 
-<Layout page="now" title="Now — A Living Garden" description="此刻正在学习、阅读、构建与好奇的事情。">
+<Layout
+  page="now"
+  title="Now — A Living Garden"
+  description="此刻正在学习、阅读、构建与好奇的事情。"
+>
   <Header />
-  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+  <main id="main-content" class="app-layout flex-1 pt-14 pb-24">
     <div class="now-hero">
       <div>
         <p class="eyebrow">Updated {now.updated} · 此刻</p>
-        <h1 class="display now-title">Now<span class="accent-script title-script">what is happening</span></h1>
+        <h1 class="display now-title">
+          Now<span class="accent-script title-script">what is happening</span>
+        </h1>
         <p class="hand-cn now-cn">{now.headlineZh}</p>
-        <p class="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground">{now.intro}</p>
+        <p class="text-muted-foreground mt-5 max-w-2xl text-sm leading-7">
+          {now.intro}
+        </p>
       </div>
       <div class="now-orbit" aria-hidden="true">
         <span class="orbit-ring"></span>
@@ -40,8 +48,12 @@ const kindGlyph = { learning: "✦", building: "✳", reading: "❋", curious: "
         now.items.map((item, index) => (
           <article class:list={["now-card", `card-${index % 4}`]}>
             <div class="card-head">
-              <span class="glyph" aria-hidden="true">{kindGlyph[item.kind as keyof typeof kindGlyph] ?? "✦"}</span>
-              <span class="eyebrow">{kindLabel[item.kind as keyof typeof kindLabel] ?? item.kind}</span>
+              <span class="glyph" aria-hidden="true">
+                {kindGlyph[item.kind as keyof typeof kindGlyph] ?? "✦"}
+              </span>
+              <span class="eyebrow">
+                {kindLabel[item.kind as keyof typeof kindLabel] ?? item.kind}
+              </span>
             </div>
             <h2>{item.title}</h2>
             <p>{item.detail}</p>
@@ -62,11 +74,35 @@ const kindGlyph = { learning: "✦", building: "✳", reading: "❋", curious: "
 </Layout>
 
 <style>
-  .now-hero { display: grid; gap: 2rem; align-items: center; }
-  .now-title { position: relative; margin-top: 0.7rem; font-size: clamp(4rem, 11vw, 8rem); }
-  .title-script { position: absolute; right: -1rem; bottom: -0.2em; font-size: clamp(1.8rem, 4vw, 3.2rem); transform: rotate(4deg); white-space: nowrap; }
-  .now-cn { margin-top: 1.5rem; font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--accent); }
-  .now-orbit { position: relative; min-height: 15rem; display: grid; place-items: center; }
+  .now-hero {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .now-title {
+    position: relative;
+    margin-top: 0.7rem;
+    font-size: clamp(4rem, 11vw, 8rem);
+  }
+  .title-script {
+    position: absolute;
+    right: -1rem;
+    bottom: -0.2em;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    transform: rotate(4deg);
+    white-space: nowrap;
+  }
+  .now-cn {
+    margin-top: 1.5rem;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--accent);
+  }
+  .now-orbit {
+    position: relative;
+    min-height: 15rem;
+    display: grid;
+    place-items: center;
+  }
   .orbit-ring {
     position: absolute;
     width: 14rem;
@@ -75,14 +111,27 @@ const kindGlyph = { learning: "✦", building: "✳", reading: "❋", curious: "
     border: 1px dashed color-mix(in srgb, var(--sky) 55%, transparent);
     animation: slow-spin 30s linear infinite;
   }
-  .orbit-ring.inner { width: 9rem; height: 9rem; border-color: color-mix(in srgb, var(--violet) 55%, transparent); animation-direction: reverse; }
+  .orbit-ring.inner {
+    width: 9rem;
+    height: 9rem;
+    border-color: color-mix(in srgb, var(--violet) 55%, transparent);
+    animation-direction: reverse;
+  }
   .orbit-core {
     font-family: var(--font-hand-cn);
     font-size: 2rem;
     color: var(--accent);
   }
-  @keyframes slow-spin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) { .orbit-ring { animation: none; } }
+  @keyframes slow-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-ring {
+      animation: none;
+    }
+  }
 
   .placeholder-note {
     margin-top: 2.5rem;
@@ -92,24 +141,67 @@ const kindGlyph = { learning: "✦", building: "✳", reading: "❋", curious: "
     font-size: 0.78rem;
     color: var(--muted-foreground);
   }
-  .now-grid { display: grid; gap: 1.3rem; margin-top: 2rem; }
+  .now-grid {
+    display: grid;
+    gap: 1.3rem;
+    margin-top: 2rem;
+  }
   .now-card {
     border-radius: 1.4rem;
     padding: 1.6rem;
-    background: linear-gradient(150deg, color-mix(in srgb, var(--card-color) 12%, var(--background)), var(--background));
+    background: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--card-color) 12%, var(--background)),
+      var(--background)
+    );
     border: 1px solid var(--border);
     transition: transform 220ms ease;
   }
-  .now-card:hover { transform: translateY(-4px) rotate(-0.5deg); }
-  .card-0 { --card-color: var(--violet); }
-  .card-1 { --card-color: var(--coral); }
-  .card-2 { --card-color: var(--teal); }
-  .card-3 { --card-color: var(--tangerine); }
-  .card-head { display: flex; align-items: center; gap: 0.6rem; }
-  .glyph { color: var(--card-color); font-size: 1.2rem; }
-  .now-card h2 { margin-top: 1rem; font-family: var(--font-display); font-size: 1.3rem; line-height: 1.3; }
-  .now-card p { margin-top: 0.6rem; font-size: 0.85rem; line-height: 1.7; color: var(--muted-foreground); }
+  .now-card:hover {
+    transform: translateY(-4px) rotate(-0.5deg);
+  }
+  .card-0 {
+    --card-color: var(--violet);
+  }
+  .card-1 {
+    --card-color: var(--coral);
+  }
+  .card-2 {
+    --card-color: var(--teal);
+  }
+  .card-3 {
+    --card-color: var(--tangerine);
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .glyph {
+    color: var(--card-color);
+    font-size: 1.2rem;
+  }
+  .now-card h2 {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+  .now-card p {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
 
-  @media (min-width: 760px) { .now-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 900px) { .now-hero { grid-template-columns: 1.2fr 0.8fr; } }
+  @media (min-width: 760px) {
+    .now-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .now-hero {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
 </style>

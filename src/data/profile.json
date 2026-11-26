@@ -11,7 +11,11 @@
   "email": "hello@example.com",
   "availability": "开放交流 / 合作（占位）",
   "socials": [
-    { "label": "GitHub", "url": "https://github.com/hellothankyousorry", "placeholder": false },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/hellothankyousorry",
+      "placeholder": false
+    },
     { "label": "Email", "url": "mailto:hello@example.com", "placeholder": true }
   ],
   "placeholderNotice": "本站示例资料使用占位符，请在 src/data/profile.json 与内容目录中替换。"

@@ -5,7 +5,11 @@ import Footer from "@/components/Footer.astro";
 import NoteCard from "@/components/NoteCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import GardenVerbs from "@/components/GardenVerbs.astro";
-import { getPublishedNotes, getPublishedProjects, noteUrl } from "@/utils/knowledge";
+import {
+  getPublishedNotes,
+  getPublishedProjects,
+  noteUrl,
+} from "@/utils/knowledge";
 import profile from "@/data/profile.json";
 import now from "@/data/now.json";
 import { BASE_PATH } from "@/site.config";
@@ -13,28 +17,57 @@ import { BASE_PATH } from "@/site.config";
 const notes = await getPublishedNotes();
 const projects = await getPublishedProjects();
 const recentNotes = notes.slice(0, 4);
-const featuredProjects = projects.filter(project => project.data.featured).slice(0, 2);
+const featuredProjects = projects
+  .filter(project => project.data.featured)
+  .slice(0, 2);
 const nameParts = profile.name.trim().split(/\s+/);
 const firstName = nameParts[0] ?? "Your";
 const lastName = nameParts.slice(1).join(" ") || "Name";
 
 const paths = [
-  { href: `${BASE_PATH}/notes/`, label: "Notes", zh: "笔记与思考", note: `${notes.length} notes growing` },
-  { href: `${BASE_PATH}/projects/`, label: "Projects", zh: "实践与作品", note: `${projects.length} experiments` },
-  { href: `${BASE_PATH}/resume/`, label: "Resume", zh: "履历与轨迹", note: "a timeline" },
-  { href: `${BASE_PATH}/now/`, label: "Now", zh: "此刻正在", note: "updated often" },
+  {
+    href: `${BASE_PATH}/notes/`,
+    label: "Notes",
+    zh: "笔记与思考",
+    note: `${notes.length} notes growing`,
+  },
+  {
+    href: `${BASE_PATH}/projects/`,
+    label: "Projects",
+    zh: "实践与作品",
+    note: `${projects.length} experiments`,
+  },
+  {
+    href: `${BASE_PATH}/resume/`,
+    label: "Resume",
+    zh: "履历与轨迹",
+    note: "a timeline",
+  },
+  {
+    href: `${BASE_PATH}/now/`,
+    label: "Now",
+    zh: "此刻正在",
+    note: "updated often",
+  },
 ];
 ---
 
-<Layout page="home" title={`${profile.name} — ${profile.taglineEn}`} description={profile.intro}>
+<Layout
+  page="home"
+  title={`${profile.name} — ${profile.taglineEn}`}
+  description={profile.intro}
+>
   <Header />
 
   <main id="main-content" class="flex-1">
     <section class="app-layout hero-stage" aria-labelledby="hero-title">
       <div class="hero-orbit" aria-hidden="true">
         <span class="hero-node" style="top:18%;left:24%"></span>
-        <span class="hero-node" style="top:62%;left:78%;background:var(--violet)"></span>
-        <span class="hero-node" style="top:84%;left:38%;background:var(--teal)"></span>
+        <span
+          class="hero-node"
+          style="top:62%;left:78%;background:var(--violet)"></span>
+        <span class="hero-node" style="top:84%;left:38%;background:var(--teal)"
+        ></span>
       </div>
 
       <div class="floating-note one glass" aria-hidden="true">
@@ -43,7 +76,9 @@ const paths = [
       </div>
       <div class="floating-note two glass" aria-hidden="true">
         <span class="hand-cn text-xl">慢慢生长</span><br />
-        <span class="text-xs text-muted-foreground">garden log · {new Date().getUTCFullYear()}</span>
+        <span class="text-muted-foreground text-xs"
+          >garden log · {new Date().getUTCFullYear()}</span
+        >
       </div>
 
       <div class="hero-copy">
@@ -53,13 +88,20 @@ const paths = [
           <span class="line line-two display-italic">{lastName}</span>
         </h1>
         <p class="hero-cn hand-cn mt-4">{profile.taglineZh}</p>
-        <p class="hero-script accent-script" aria-hidden="true">hello, curious one</p>
-        <p class="mt-7 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
+        <p class="hero-script accent-script" aria-hidden="true">
+          hello, curious one
+        </p>
+        <p
+          class="text-muted-foreground mt-7 max-w-xl text-sm leading-7 sm:text-base"
+        >
           {profile.intro}
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a class="primary-cta" href={noteUrl(notes[0]?.id ?? "a-garden-of-thoughts")}>
+          <a
+            class="primary-cta"
+            href={noteUrl(notes[0]?.id ?? "a-garden-of-thoughts")}
+          >
             进入花园 <span aria-hidden="true">↗</span>
           </a>
           <a class="secondary-cta" href={`${BASE_PATH}/about/`}>关于这里</a>
@@ -76,10 +118,14 @@ const paths = [
       <div class="glass now-strip">
         <div>
           <p class="eyebrow">Now · 此刻</p>
-          <h2 id="now-title" class="mt-2 text-lg font-medium">{now.items[0]?.title}</h2>
+          <h2 id="now-title" class="mt-2 text-lg font-medium">
+            {now.items[0]?.title}
+          </h2>
         </div>
-        <p class="text-sm text-muted-foreground">{now.items[0]?.detail}</p>
-        <a class="now-link" href={`${BASE_PATH}/now/`}>查看此刻 <span aria-hidden="true">→</span></a>
+        <p class="text-muted-foreground text-sm">{now.items[0]?.detail}</p>
+        <a class="now-link" href={`${BASE_PATH}/now/`}
+          >查看此刻 <span aria-hidden="true">→</span></a
+        >
       </div>
     </section>
 
@@ -89,19 +135,29 @@ const paths = [
           <p class="eyebrow">Wander paths</p>
           <h2 id="paths-title" class="section-title mt-2">从哪里开始探索？</h2>
         </div>
-        <span class="accent-script hidden text-3xl sm:block" aria-hidden="true">pick a thread</span>
+        <span class="accent-script hidden text-3xl sm:block" aria-hidden="true"
+          >pick a thread</span
+        >
       </div>
 
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {paths.map((path, index) => (
-          <a class="path-card" href={path.href} style={`--path-accent:${["var(--coral)","var(--violet)","var(--teal)","var(--sky)"][index]}`}>
-            <span class="path-number">0{index + 1}</span>
-            <span class="path-label">{path.label}</span>
-            <span class="hand-cn path-zh">{path.zh}</span>
-            <span class="path-note">{path.note}</span>
-            <span class="path-arrow" aria-hidden="true">↗</span>
-          </a>
-        ))}
+        {
+          paths.map((path, index) => (
+            <a
+              class="path-card"
+              href={path.href}
+              style={`--path-accent:${["var(--coral)", "var(--violet)", "var(--teal)", "var(--sky)"][index]}`}
+            >
+              <span class="path-number">0{index + 1}</span>
+              <span class="path-label">{path.label}</span>
+              <span class="hand-cn path-zh">{path.zh}</span>
+              <span class="path-note">{path.note}</span>
+              <span class="path-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          ))
+        }
       </div>
     </section>
 
@@ -111,10 +167,16 @@ const paths = [
           <p class="eyebrow">Freshly grown</p>
           <h2 id="recent-title" class="section-title mt-2">最近的笔记</h2>
         </div>
-        <a class="quiet-link" href={`${BASE_PATH}/notes/`}>全部笔记 <span aria-hidden="true">→</span></a>
+        <a class="quiet-link" href={`${BASE_PATH}/notes/`}
+          >全部笔记 <span aria-hidden="true">→</span></a
+        >
       </div>
       <div class="grid gap-5 md:grid-cols-2">
-        {recentNotes.map((note, index) => <NoteCard note={note} featured={index === 0} index={index} />)}
+        {
+          recentNotes.map((note, index) => (
+            <NoteCard note={note} featured={index === 0} index={index} />
+          ))
+        }
       </div>
     </section>
 
@@ -124,9 +186,13 @@ const paths = [
           <div class="mb-8 flex items-end justify-between gap-4">
             <div>
               <p class="eyebrow">Selected work</p>
-              <h2 id="projects-title" class="section-title mt-2">精选项目</h2>
+              <h2 id="projects-title" class="section-title mt-2">
+                精选项目
+              </h2>
             </div>
-            <a class="quiet-link" href={`${BASE_PATH}/projects/`}>全部项目 <span aria-hidden="true">→</span></a>
+            <a class="quiet-link" href={`${BASE_PATH}/projects/`}>
+              全部项目 <span aria-hidden="true">→</span>
+            </a>
           </div>
           <div class="grid gap-6 md:grid-cols-2">
             {featuredProjects.map((project, index) => (
@@ -144,9 +210,18 @@ const paths = [
 </Layout>
 
 <style>
-  .hero-copy { position: relative; z-index: 2; max-width: 62rem; padding-block: 4rem 7rem; }
-  .hero-title { margin-top: 1.5rem; }
-  .hero-title .line-two { color: var(--accent); }
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 62rem;
+    padding-block: 4rem 7rem;
+  }
+  .hero-title {
+    margin-top: 1.5rem;
+  }
+  .hero-title .line-two {
+    color: var(--accent);
+  }
   .primary-cta,
   .secondary-cta {
     display: inline-flex;
@@ -156,15 +231,23 @@ const paths = [
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
     text-decoration: none;
-    transition: transform 200ms ease, box-shadow 200ms ease;
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
   }
   .primary-cta {
     background: var(--accent);
     color: var(--accent-foreground);
     box-shadow: 0 14px 30px -16px var(--accent);
   }
-  .secondary-cta { border: 1px solid var(--border); color: var(--foreground); }
-  .primary-cta:hover, .secondary-cta:hover { transform: translateY(-3px); }
+  .secondary-cta {
+    border: 1px solid var(--border);
+    color: var(--foreground);
+  }
+  .primary-cta:hover,
+  .secondary-cta:hover {
+    transform: translateY(-3px);
+  }
   .scroll-cue {
     position: absolute;
     bottom: 2rem;
@@ -176,7 +259,12 @@ const paths = [
     font-size: 1.4rem;
     color: var(--muted-foreground);
   }
-  .cue-line { display: block; width: 3.5rem; height: 1px; background: var(--accent); }
+  .cue-line {
+    display: block;
+    width: 3.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
   .now-strip {
     display: grid;
     gap: 1rem;
@@ -184,7 +272,8 @@ const paths = [
     padding: 1.6rem 1.8rem;
     align-items: center;
   }
-  .now-link, .quiet-link {
+  .now-link,
+  .quiet-link {
     color: var(--accent);
     text-decoration: underline dotted;
     text-underline-offset: 5px;
@@ -198,23 +287,68 @@ const paths = [
     padding: 1.5rem;
     border-radius: 1.4rem;
     border: 1px solid var(--border);
-    background: linear-gradient(150deg, color-mix(in srgb, var(--path-accent) 12%, var(--background)), var(--background));
+    background: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--path-accent) 12%, var(--background)),
+      var(--background)
+    );
     text-decoration: none;
-    transition: transform 240ms ease, border-color 240ms ease;
+    transition:
+      transform 240ms ease,
+      border-color 240ms ease;
   }
-  .path-card:hover { transform: translateY(-5px) rotate(-1deg); border-color: var(--path-accent); }
-  .path-number { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted-foreground); }
-  .path-label { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--foreground); }
-  .path-zh { font-size: 1.35rem; color: var(--path-accent); }
-  .path-note { margin-top: 0.5rem; font-size: 0.74rem; color: var(--muted-foreground); }
-  .path-arrow { position: absolute; top: 1.2rem; right: 1.4rem; color: var(--path-accent); }
+  .path-card:hover {
+    transform: translateY(-5px) rotate(-1deg);
+    border-color: var(--path-accent);
+  }
+  .path-number {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted-foreground);
+  }
+  .path-label {
+    margin-top: auto;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+  .path-zh {
+    font-size: 1.35rem;
+    color: var(--path-accent);
+  }
+  .path-note {
+    margin-top: 0.5rem;
+    font-size: 0.74rem;
+    color: var(--muted-foreground);
+  }
+  .path-arrow {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.4rem;
+    color: var(--path-accent);
+  }
   @media (min-width: 900px) {
-    .now-strip { grid-template-columns: 1fr 1.6fr auto; }
+    .now-strip {
+      grid-template-columns: 1fr 1.6fr auto;
+    }
   }
   @media (max-width: 700px) {
-    .floating-note { display: none !important; }
-    .hero-script { top: auto; bottom: 9%; right: 7%; font-size: 2.4rem; opacity: 0.7; }
-    .hero-copy { padding-block: 3rem 5rem; }
-    .scroll-cue { display: none; }
+    .floating-note {
+      display: none !important;
+    }
+    .hero-script {
+      top: auto;
+      bottom: 9%;
+      right: 7%;
+      font-size: 2.4rem;
+      opacity: 0.7;
+    }
+    .hero-copy {
+      padding-block: 3rem 5rem;
+    }
+    .scroll-cue {
+      display: none;
+    }
   }
 </style>

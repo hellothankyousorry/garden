@@ -7,11 +7,14 @@ import { BASE_PATH } from "@/site.config";
 
 <Layout page="home" title="404 — A Living Garden">
   <Header />
-  <main id="main-content" class="app-layout flex flex-1 flex-col items-center justify-center py-24 text-center">
+  <main
+    id="main-content"
+    class="app-layout flex flex-1 flex-col items-center justify-center py-24 text-center"
+  >
     <p class="accent-script text-5xl">a path not grown yet</p>
     <h1 class="display mt-4 text-8xl sm:text-9xl">404</h1>
-    <p class="hand-cn mt-4 text-2xl text-accent">这里还没有长出内容</p>
-    <p class="mt-4 max-w-md text-sm leading-7 text-muted-foreground">
+    <p class="hand-cn text-accent mt-4 text-2xl">这里还没有长出内容</p>
+    <p class="text-muted-foreground mt-4 max-w-md text-sm leading-7">
       也许链接已经移动，也许这个想法还在种子阶段。回到首页，换一条路继续走。
     </p>
     <a class="home-link mt-8" href={`${BASE_PATH}/`}>回到首页 →</a>

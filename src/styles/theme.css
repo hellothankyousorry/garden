@@ -23,7 +23,9 @@
   --color-rose: var(--rose);
   --color-chartreuse: var(--chartreuse);
   --color-neon: var(--neon);
-  --font-app: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-app:
+    "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui,
+    sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
   --font-accent: "Allura", cursive;
   --font-hand-cn: "Long Cang", "STKaiti", cursive;
@@ -89,19 +91,49 @@
 }
 
 /* Each section has its own accent personality while sharing the same system. */
-[data-page="notes"] { --accent: var(--violet); --accent-soft: color-mix(in srgb, var(--violet) 14%, var(--background)); }
-[data-page="projects"] { --accent: var(--tangerine); --accent-soft: color-mix(in srgb, var(--tangerine) 16%, var(--background)); }
-[data-page="resume"] { --accent: var(--teal); --accent-soft: color-mix(in srgb, var(--teal) 14%, var(--background)); }
-[data-page="about"] { --accent: var(--rose); --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background)); }
-[data-page="now"] { --accent: var(--sky); --accent-soft: color-mix(in srgb, var(--sky) 14%, var(--background)); }
-[data-page="tags"] { --accent: var(--rose); --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background)); }
+[data-page="notes"] {
+  --accent: var(--violet);
+  --accent-soft: color-mix(in srgb, var(--violet) 14%, var(--background));
+}
+[data-page="projects"] {
+  --accent: var(--tangerine);
+  --accent-soft: color-mix(in srgb, var(--tangerine) 16%, var(--background));
+}
+[data-page="resume"] {
+  --accent: var(--teal);
+  --accent-soft: color-mix(in srgb, var(--teal) 14%, var(--background));
+}
+[data-page="about"] {
+  --accent: var(--rose);
+  --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background));
+}
+[data-page="now"] {
+  --accent: var(--sky);
+  --accent-soft: color-mix(in srgb, var(--sky) 14%, var(--background));
+}
+[data-page="tags"] {
+  --accent: var(--rose);
+  --accent-soft: color-mix(in srgb, var(--rose) 14%, var(--background));
+}
 
-[data-theme="dark"][data-page="notes"] { --accent: var(--violet); }
-[data-theme="dark"][data-page="projects"] { --accent: var(--tangerine); }
-[data-theme="dark"][data-page="resume"] { --accent: var(--teal); }
-[data-theme="dark"][data-page="about"] { --accent: var(--rose); }
-[data-theme="dark"][data-page="now"] { --accent: var(--sky); }
-[data-theme="dark"][data-page="tags"] { --accent: var(--rose); }
+[data-theme="dark"][data-page="notes"] {
+  --accent: var(--violet);
+}
+[data-theme="dark"][data-page="projects"] {
+  --accent: var(--tangerine);
+}
+[data-theme="dark"][data-page="resume"] {
+  --accent: var(--teal);
+}
+[data-theme="dark"][data-page="about"] {
+  --accent: var(--rose);
+}
+[data-theme="dark"][data-page="now"] {
+  --accent: var(--sky);
+}
+[data-theme="dark"][data-page="tags"] {
+  --accent: var(--rose);
+}
 
 html {
   background-color: var(--background);
@@ -149,15 +181,31 @@ body {
   animation: drift 26s ease-in-out infinite alternate;
 }
 
-.ambient-art .blob:nth-of-type(2) { animation-duration: 32s; animation-delay: -8s; }
-.ambient-art .blob:nth-of-type(3) { animation-duration: 38s; animation-delay: -14s; }
+.ambient-art .blob:nth-of-type(2) {
+  animation-duration: 32s;
+  animation-delay: -8s;
+}
+.ambient-art .blob:nth-of-type(3) {
+  animation-duration: 38s;
+  animation-delay: -14s;
+}
 
 @keyframes drift {
-  from { transform: translate3d(-12px, 8px, 0) rotate(-3deg) scale(1); }
-  to   { transform: translate3d(18px, -14px, 0) rotate(4deg) scale(1.08); }
+  from {
+    transform: translate3d(-12px, 8px, 0) rotate(-3deg) scale(1);
+  }
+  to {
+    transform: translate3d(18px, -14px, 0) rotate(4deg) scale(1.08);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-art .blob { animation: none !important; }
-  *, *::before, *::after { scroll-behavior: auto !important; }
+  .ambient-art .blob {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }

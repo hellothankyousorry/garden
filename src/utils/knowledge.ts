@@ -28,7 +28,10 @@ const wikilinkTargets = (body: string | undefined): string[] => {
   );
 };
 
-export function getBacklinks(notes: NoteEntry[], targetId: string): NoteEntry[] {
+export function getBacklinks(
+  notes: NoteEntry[],
+  targetId: string
+): NoteEntry[] {
   const target = targetId.toLowerCase();
   return notes.filter(note => wikilinkTargets(note.body).includes(target));
 }
@@ -50,7 +53,9 @@ export function getRelatedNotes(
   };
 
   note.data.related.forEach(id =>
-    notes.filter(candidate => candidate.id === id).forEach(entry => add(entry, 8))
+    notes
+      .filter(candidate => candidate.id === id)
+      .forEach(entry => add(entry, 8))
   );
 
   notes.forEach(candidate => {
@@ -63,7 +68,11 @@ export function getRelatedNotes(
   getBacklinks(notes, note.id).forEach(entry => add(entry, 5));
 
   return [...candidates.values()]
-    .sort((a, b) => b.score - a.score || b.entry.data.pubDatetime.valueOf() - a.entry.data.pubDatetime.valueOf())
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        b.entry.data.pubDatetime.valueOf() - a.entry.data.pubDatetime.valueOf()
+    )
     .slice(0, limit)
     .map(item => item.entry);
 }

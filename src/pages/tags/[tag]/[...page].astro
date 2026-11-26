@@ -18,12 +18,18 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const notes = (await getPublishedNotes()).filter(note => note.data.tags.includes(tag));
+const notes = (await getPublishedNotes()).filter(note =>
+  note.data.tags.includes(tag)
+);
 ---
 
-<Layout page="tags" title={`#${tag} — Notes`} description={`带有 ${tag} 标签的笔记。`}>
+<Layout
+  page="tags"
+  title={`#${tag} — Notes`}
+  description={`带有 ${tag} 标签的笔记。`}
+>
   <Header />
-  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+  <main id="main-content" class="app-layout flex-1 pt-14 pb-24">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href={`${BASE_PATH}/`}>Home</a><span aria-hidden="true">/</span>
       <a href={`${BASE_PATH}/tags/`}>Tags</a><span aria-hidden="true">/</span>
@@ -33,7 +39,9 @@ const notes = (await getPublishedNotes()).filter(note => note.data.tags.includes
     <div class="tag-heading">
       <p class="eyebrow">Tagged</p>
       <h1 class="display tag-title">#{tag}</h1>
-      <p class="accent-script tag-script">{notes.length} notes in this thread</p>
+      <p class="accent-script tag-script">
+        {notes.length} notes in this thread
+      </p>
     </div>
 
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -46,10 +54,30 @@ const notes = (await getPublishedNotes()).filter(note => note.data.tags.includes
 </Layout>
 
 <style>
-  .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); }
-  .breadcrumb a { text-decoration: underline dotted; text-underline-offset: 3px; }
-  .tag-heading { margin: 3rem 0 4rem; }
-  .tag-title { font-size: clamp(3rem, 9vw, 6rem); }
-  .tag-script { margin-top: 0.8rem; font-size: clamp(1.8rem, 4vw, 3rem); }
-  .back-link { display: inline-block; margin-top: 3rem; color: var(--accent); font-size: 0.85rem; }
+  .breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+  .breadcrumb a {
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+  }
+  .tag-heading {
+    margin: 3rem 0 4rem;
+  }
+  .tag-title {
+    font-size: clamp(3rem, 9vw, 6rem);
+  }
+  .tag-script {
+    margin-top: 0.8rem;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 3rem;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
 </style>

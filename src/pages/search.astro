@@ -8,23 +8,53 @@ import { getAssetPath } from "@/utils/withBase";
 const bundlePath = getAssetPath("pagefind/");
 ---
 
-<Layout page="search" title="Search — A Living Garden" description="搜索花园中的笔记与项目。">
+<Layout
+  page="search"
+  title="Search — A Living Garden"
+  description="搜索花园中的笔记与项目。"
+>
   <Header />
-  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+  <main id="main-content" class="app-layout flex-1 pt-14 pb-24">
     <p class="eyebrow">Find a thread</p>
-    <h1 class="display page-title">Search<span class="accent-script title-script">look around</span></h1>
+    <h1 class="display page-title">
+      Search<span class="accent-script title-script">look around</span>
+    </h1>
     <p class="hand-cn page-title-cn">在花园里找一条线索</p>
 
-    <div id="pagefind-search" class="search-panel" data-bundle-path={bundlePath} transition:persist></div>
-    <p class="dev-hint">静态搜索索引会在生产构建后生成；开发模式下请运行 npm run build 后再查看结果。</p>
+    <div
+      id="pagefind-search"
+      class="search-panel"
+      data-bundle-path={bundlePath}
+      transition:persist
+    >
+    </div>
+    <p class="dev-hint">
+      静态搜索索引会在生产构建后生成；开发模式下请运行 npm run build
+      后再查看结果。
+    </p>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  .page-title { position: relative; margin-top: 0.7rem; font-size: clamp(4rem, 11vw, 8rem); }
-  .title-script { position: absolute; right: -1rem; bottom: -0.2em; font-size: clamp(1.8rem, 4vw, 3rem); transform: rotate(-6deg); white-space: nowrap; }
-  .page-title-cn { margin-top: 1.5rem; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--accent); }
+  .page-title {
+    position: relative;
+    margin-top: 0.7rem;
+    font-size: clamp(4rem, 11vw, 8rem);
+  }
+  .title-script {
+    position: absolute;
+    right: -1rem;
+    bottom: -0.2em;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    transform: rotate(-6deg);
+    white-space: nowrap;
+  }
+  .page-title-cn {
+    margin-top: 1.5rem;
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    color: var(--accent);
+  }
   .search-panel {
     margin-top: 4rem;
     padding: 1.5rem;
@@ -33,7 +63,11 @@ const bundlePath = getAssetPath("pagefind/");
     background: var(--background);
     box-shadow: var(--shadow-art);
   }
-  .dev-hint { margin-top: 1rem; font-size: 0.72rem; color: var(--muted-foreground); }
+  .dev-hint {
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    color: var(--muted-foreground);
+  }
 
   #pagefind-search {
     --pagefind-ui-font: var(--font-app);

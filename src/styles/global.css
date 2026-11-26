@@ -20,7 +20,10 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply text-foreground;
   }
 }
@@ -210,15 +213,31 @@
   display: block;
   border-radius: 1.4rem;
   padding: 1.5rem;
-  background: linear-gradient(155deg, color-mix(in srgb, var(--card-accent, var(--accent)) 10%, var(--background)), var(--background));
+  background: linear-gradient(
+    155deg,
+    color-mix(
+      in srgb,
+      var(--card-accent, var(--accent)) 10%,
+      var(--background)
+    ),
+    var(--background)
+  );
   border: 1px solid var(--border);
-  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
 }
 
 .garden-card:hover {
   transform: translateY(-5px) rotate(-0.4deg);
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--border));
-  box-shadow: 0 22px 46px -30px color-mix(in srgb, var(--card-accent, var(--accent)) 60%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--card-accent, var(--accent)) 55%,
+    var(--border)
+  );
+  box-shadow: 0 22px 46px -30px
+    color-mix(in srgb, var(--card-accent, var(--accent)) 60%, transparent);
 }
 
 .garden-card::after {
@@ -229,7 +248,11 @@
   right: -1rem;
   bottom: -1rem;
   border-radius: 48% 52% 62% 38%;
-  background: color-mix(in srgb, var(--card-accent, var(--accent)) 32%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--card-accent, var(--accent)) 32%,
+    transparent
+  );
   filter: blur(2px);
   opacity: 0.65;
   pointer-events: none;
@@ -245,14 +268,25 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: color-mix(in srgb, var(--pill-accent, var(--accent)) 15%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--pill-accent, var(--accent)) 15%,
+    transparent
+  );
   color: var(--pill-accent, var(--accent));
-  border: 1px solid color-mix(in srgb, var(--pill-accent, var(--accent)) 30%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--pill-accent, var(--accent)) 30%, transparent);
 }
 
-.kind-seed { --pill-accent: var(--tangerine); }
-.kind-note { --pill-accent: var(--violet); }
-.kind-evergreen { --pill-accent: var(--teal); }
+.kind-seed {
+  --pill-accent: var(--tangerine);
+}
+.kind-note {
+  --pill-accent: var(--violet);
+}
+.kind-evergreen {
+  --pill-accent: var(--teal);
+}
 
 /* ---------- Links and marginalia ---------- */
 .wikilink {
@@ -300,9 +334,28 @@
 
 /* ---------- Print ---------- */
 @media print {
-  .ambient-art, header, footer, .no-print, .progress-container { display: none !important; }
-  body { background: #fff !important; color: #111 !important; }
-  main { max-width: none !important; padding: 0 !important; }
-  .paper-card, .garden-card { box-shadow: none !important; border-color: #ddd !important; }
-  a { color: inherit !important; text-decoration: none !important; }
+  .ambient-art,
+  header,
+  footer,
+  .no-print,
+  .progress-container {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  .paper-card,
+  .garden-card {
+    box-shadow: none !important;
+    border-color: #ddd !important;
+  }
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
 }

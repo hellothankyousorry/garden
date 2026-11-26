@@ -38,8 +38,17 @@
     }
   ],
   "skills": [
-    { "category": "Writing / 写作", "items": ["Markdown", "Technical writing", "Note-taking"] },
-    { "category": "Building / 构建", "items": ["TypeScript", "Astro", "Web design"] },
-    { "category": "Thinking / 思考", "items": ["Research", "Systems thinking", "Curiosity"] }
+    {
+      "category": "Writing / 写作",
+      "items": ["Markdown", "Technical writing", "Note-taking"]
+    },
+    {
+      "category": "Building / 构建",
+      "items": ["TypeScript", "Astro", "Web design"]
+    },
+    {
+      "category": "Thinking / 思考",
+      "items": ["Research", "Systems thinking", "Curiosity"]
+    }
   ]
 }

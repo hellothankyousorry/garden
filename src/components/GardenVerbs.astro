@@ -4,7 +4,9 @@
 
 <section class="verbs-section app-layout" aria-labelledby="verbs-title">
   <div class="verbs-board">
-    <div class="bands" aria-hidden="true"><i class="band-lime"></i><i class="band-teal"></i></div>
+    <div class="bands" aria-hidden="true">
+      <i class="band-lime"></i><i class="band-teal"></i>
+    </div>
 
     <div class="verbs-copy">
       <p class="eyebrow">what if, instead · verbs for gardens</p>
@@ -14,30 +16,50 @@
         想法可以在这里实验、生长、被照看，也可以保持未完成。
         沿着连接走，你会遇到意想不到的东西。
       </p>
-      <a class="verbs-link" href={`${import.meta.env.BASE_URL}notes/`}>沿着连接漫游 <span aria-hidden="true">→</span></a>
+      <a class="verbs-link" href={`${import.meta.env.BASE_URL}notes/`}
+        >沿着连接漫游 <span aria-hidden="true">→</span></a
+      >
     </div>
 
     <div class="verbs-collage" aria-hidden="true">
       <svg class="verbs-web" viewBox="0 0 520 360" role="presentation">
         <g class="web-threads">
-          <path d="M260 170 Q140 90 40 120" /><path d="M260 170 Q360 70 480 96" />
-          <path d="M260 170 Q130 180 34 236" /><path d="M260 170 Q400 180 500 220" />
-          <path d="M260 170 Q170 300 84 330" /><path d="M260 170 Q370 300 470 330" />
-          <path d="M260 170 Q240 60 210 26" /><path d="M260 170 Q300 60 348 30" />
+          <path d="M260 170 Q140 90 40 120"></path><path
+            d="M260 170 Q360 70 480 96"></path>
+          <path d="M260 170 Q130 180 34 236"></path><path
+            d="M260 170 Q400 180 500 220"></path>
+          <path d="M260 170 Q170 300 84 330"></path><path
+            d="M260 170 Q370 300 470 330"></path>
+          <path d="M260 170 Q240 60 210 26"></path><path
+            d="M260 170 Q300 60 348 30"></path>
         </g>
         <g class="web-seeds">
-          <circle cx="40" cy="120" r="4" /><circle cx="480" cy="96" r="5" />
-          <circle cx="34" cy="236" r="4" /><circle cx="500" cy="220" r="4" />
-          <circle cx="84" cy="330" r="5" /><circle cx="470" cy="330" r="4" />
-          <circle cx="210" cy="26" r="3" /><circle cx="348" cy="30" r="4" />
+          <circle cx="40" cy="120" r="4"></circle><circle cx="480" cy="96" r="5"
+          ></circle>
+          <circle cx="34" cy="236" r="4"></circle><circle
+            cx="500"
+            cy="220"
+            r="4"></circle>
+          <circle cx="84" cy="330" r="5"></circle><circle
+            cx="470"
+            cy="330"
+            r="4"></circle>
+          <circle cx="210" cy="26" r="3"></circle><circle cx="348" cy="30" r="4"
+          ></circle>
         </g>
         <g class="sprout">
-          <path class="stem" d="M260 206 C256 170 264 128 260 88" />
-          <path class="leaf" d="M260 150 C228 134 208 142 196 118 C224 108 250 122 260 150 Z" />
-          <path class="leaf" d="M260 132 C288 112 310 118 324 96 C298 88 270 104 260 132 Z" />
-          <path class="root" d="M260 206 C256 238 238 260 214 282" />
-          <path class="root" d="M260 206 C266 240 288 262 314 282" />
-          <path class="root" d="M260 206 C262 244 258 276 258 306" />
+          <path class="stem" d="M260 206 C256 170 264 128 260 88"></path>
+          <path
+            class="leaf"
+            d="M260 150 C228 134 208 142 196 118 C224 108 250 122 260 150 Z"
+          ></path>
+          <path
+            class="leaf"
+            d="M260 132 C288 112 310 118 324 96 C298 88 270 104 260 132 Z"
+          ></path>
+          <path class="root" d="M260 206 C256 238 238 260 214 282"></path>
+          <path class="root" d="M260 206 C266 240 288 262 314 282"></path>
+          <path class="root" d="M260 206 C262 244 258 276 258 306"></path>
         </g>
       </svg>
 
@@ -56,7 +78,9 @@
 </section>
 
 <style>
-  .verbs-section { padding-block: 3rem 5rem; }
+  .verbs-section {
+    padding-block: 3rem 5rem;
+  }
 
   .verbs-board {
     position: relative;
@@ -67,18 +91,42 @@
     border-radius: 1.8rem;
     border: 1px solid var(--border);
     padding: clamp(1.6rem, 4vw, 3rem);
-    background: linear-gradient(150deg,
+    background: linear-gradient(
+      150deg,
       color-mix(in srgb, var(--violet) 14%, var(--background)),
-      color-mix(in srgb, var(--teal) 8%, var(--background-alt)));
+      color-mix(in srgb, var(--teal) 8%, var(--background-alt))
+    );
     box-shadow: var(--shadow-art);
   }
 
-  .bands { position: absolute; inset: 0; z-index: -1; opacity: 0.2; pointer-events: none; }
-  .bands i { position: absolute; inset-block: 0; display: block; }
-  .band-lime { inset-inline-start: 0; width: 11%; background: var(--chartreuse); }
-  .band-teal { inset-inline-start: 11%; width: 10%; background: var(--teal); }
+  .bands {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  .bands i {
+    position: absolute;
+    inset-block: 0;
+    display: block;
+  }
+  .band-lime {
+    inset-inline-start: 0;
+    width: 11%;
+    background: var(--chartreuse);
+  }
+  .band-teal {
+    inset-inline-start: 11%;
+    width: 10%;
+    background: var(--teal);
+  }
 
-  .verbs-copy { position: relative; z-index: 2; align-self: center; }
+  .verbs-copy {
+    position: relative;
+    z-index: 2;
+    align-self: center;
+  }
   .verbs-script {
     margin-top: 0.4rem;
     font-family: var(--font-accent);
@@ -88,8 +136,19 @@
     transform: rotate(-4deg);
     transform-origin: left center;
   }
-  .verbs-lead { margin-top: 1rem; font-family: var(--font-hand-cn); font-size: clamp(1.3rem, 3vw, 1.9rem); color: var(--foreground); }
-  .verbs-desc { margin-top: 0.7rem; max-width: 26rem; font-size: 0.9rem; line-height: 1.85; color: var(--muted-foreground); }
+  .verbs-lead {
+    margin-top: 1rem;
+    font-family: var(--font-hand-cn);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    color: var(--foreground);
+  }
+  .verbs-desc {
+    margin-top: 0.7rem;
+    max-width: 26rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--muted-foreground);
+  }
   .verbs-link {
     display: inline-block;
     margin-top: 1.4rem;
@@ -99,13 +158,41 @@
     text-underline-offset: 5px;
   }
 
-  .verbs-collage { position: relative; min-height: 20rem; }
-  .verbs-web { width: 100%; height: auto; display: block; }
-  .web-threads path { fill: none; stroke: var(--accent); stroke-width: 1.1; opacity: 0.26; }
-  .web-seeds circle { fill: var(--neon); opacity: 0.55; }
-  .sprout .stem, .sprout .root { fill: none; stroke: var(--foreground); stroke-width: 2.2; stroke-linecap: round; opacity: 0.75; }
-  .sprout .root { stroke-width: 1.6; opacity: 0.6; }
-  .sprout .leaf { fill: color-mix(in srgb, var(--teal) 45%, var(--chartreuse)); opacity: 0.75; }
+  .verbs-collage {
+    position: relative;
+    min-height: 20rem;
+  }
+  .verbs-web {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .web-threads path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.1;
+    opacity: 0.26;
+  }
+  .web-seeds circle {
+    fill: var(--neon);
+    opacity: 0.55;
+  }
+  .sprout .stem,
+  .sprout .root {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+  .sprout .root {
+    stroke-width: 1.6;
+    opacity: 0.6;
+  }
+  .sprout .leaf {
+    fill: color-mix(in srgb, var(--teal) 45%, var(--chartreuse));
+    opacity: 0.75;
+  }
 
   .verb {
     position: absolute;
@@ -119,15 +206,51 @@
     letter-spacing: 0.1em;
     white-space: nowrap;
   }
-  .v1 { top: 6%; left: 24%; transform: rotate(-8deg); }
-  .v2 { top: 20%; left: 63%; transform: rotate(6deg); }
-  .v3 { top: 31%; left: 72%; transform: rotate(-5deg); }
-  .v4 { top: 42%; left: 6%; transform: rotate(7deg); }
-  .v5 { top: 57%; left: 31%; transform: rotate(-4deg); }
-  .v6 { top: 68%; left: 58%; transform: rotate(9deg); }
-  .v7 { top: 79%; left: 16%; transform: rotate(-6deg); }
-  .v8 { top: 88%; left: 62%; transform: rotate(4deg); }
-  .v9 { top: 13%; left: 43%; transform: rotate(3deg); }
+  .v1 {
+    top: 6%;
+    left: 24%;
+    transform: rotate(-8deg);
+  }
+  .v2 {
+    top: 20%;
+    left: 63%;
+    transform: rotate(6deg);
+  }
+  .v3 {
+    top: 31%;
+    left: 72%;
+    transform: rotate(-5deg);
+  }
+  .v4 {
+    top: 42%;
+    left: 6%;
+    transform: rotate(7deg);
+  }
+  .v5 {
+    top: 57%;
+    left: 31%;
+    transform: rotate(-4deg);
+  }
+  .v6 {
+    top: 68%;
+    left: 58%;
+    transform: rotate(9deg);
+  }
+  .v7 {
+    top: 79%;
+    left: 16%;
+    transform: rotate(-6deg);
+  }
+  .v8 {
+    top: 88%;
+    left: 62%;
+    transform: rotate(4deg);
+  }
+  .v9 {
+    top: 13%;
+    left: 43%;
+    transform: rotate(3deg);
+  }
 
   .bubble {
     position: absolute;
@@ -144,18 +267,38 @@
   }
 
   @media (min-width: 900px) {
-    .verbs-board { grid-template-columns: 0.9fr 1.1fr; align-items: center; }
+    .verbs-board {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+    }
   }
 
   @media (max-width: 700px) {
-    .verbs-board { border-radius: 1.2rem; }
-    .bands { opacity: 0.12; }
-    .verbs-collage { min-height: 16rem; }
-    .v3, .v4, .v9, .bubble { display: none; }
+    .verbs-board {
+      border-radius: 1.2rem;
+    }
+    .bands {
+      opacity: 0.12;
+    }
+    .verbs-collage {
+      min-height: 16rem;
+    }
+    .v3,
+    .v4,
+    .v9,
+    .bubble {
+      display: none;
+    }
   }
 
   @media print {
-    .verbs-board { box-shadow: none; background: #fff; }
-    .bands, .verbs-collage { display: none; }
+    .verbs-board {
+      box-shadow: none;
+      background: #fff;
+    }
+    .bands,
+    .verbs-collage {
+      display: none;
+    }
   }
 </style>

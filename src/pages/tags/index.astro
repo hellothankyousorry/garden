@@ -14,13 +14,19 @@ notes.forEach(note =>
 const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<Layout page="tags" title="Tags — A Living Garden" description="沿着标签漫游这座花园。">
+<Layout
+  page="tags"
+  title="Tags — A Living Garden"
+  description="沿着标签漫游这座花园。"
+>
   <Header />
-  <main id="main-content" class="app-layout flex-1 pb-24 pt-14">
+  <main id="main-content" class="app-layout flex-1 pt-14 pb-24">
     <p class="eyebrow">Another way in</p>
-    <h1 class="display page-title">Tags<span class="accent-script title-script">follow a thread</span></h1>
+    <h1 class="display page-title">
+      Tags<span class="accent-script title-script">follow a thread</span>
+    </h1>
     <p class="hand-cn page-title-cn">沿着线索漫游</p>
-    <p class="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">
+    <p class="text-muted-foreground mt-5 max-w-xl text-sm leading-7">
       标签是临时的路标，不是永久的抽屉。相同标签下的内容常常来自完全不同的生长阶段。
     </p>
 
@@ -30,12 +36,14 @@ const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
           <a
             class="tag-card"
             href={`${BASE_PATH}/tags/${slugifyStr(tag)}/`}
-            style={`--tag-accent:${["var(--coral)","var(--violet)","var(--teal)","var(--tangerine)","var(--sky)"][index % 5]}`}
+            style={`--tag-accent:${["var(--coral)", "var(--violet)", "var(--teal)", "var(--tangerine)", "var(--sky)"][index % 5]}`}
           >
             <span class="tag-hash">#</span>
             <span class="tag-name">{tag}</span>
             <span class="tag-count">{count} 篇</span>
-            <span class="tag-arrow" aria-hidden="true">↗</span>
+            <span class="tag-arrow" aria-hidden="true">
+              ↗
+            </span>
           </a>
         ))
       }
@@ -45,10 +53,29 @@ const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
 </Layout>
 
 <style>
-  .page-title { position: relative; margin-top: 0.7rem; font-size: clamp(4rem, 11vw, 8rem); }
-  .title-script { position: absolute; right: -1rem; bottom: -0.2em; font-size: clamp(1.8rem, 4vw, 3rem); transform: rotate(-5deg); white-space: nowrap; }
-  .page-title-cn { margin-top: 1.5rem; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--accent); }
-  .tag-grid { display: grid; gap: 1rem; margin-top: 4rem; }
+  .page-title {
+    position: relative;
+    margin-top: 0.7rem;
+    font-size: clamp(4rem, 11vw, 8rem);
+  }
+  .title-script {
+    position: absolute;
+    right: -1rem;
+    bottom: -0.2em;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    transform: rotate(-5deg);
+    white-space: nowrap;
+  }
+  .page-title-cn {
+    margin-top: 1.5rem;
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    color: var(--accent);
+  }
+  .tag-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 4rem;
+  }
   .tag-card {
     position: relative;
     display: flex;
@@ -57,14 +84,41 @@ const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
     padding: 1.3rem 1.6rem;
     border-radius: 1.1rem;
     border: 1px solid var(--border);
-    background: linear-gradient(120deg, color-mix(in srgb, var(--tag-accent) 10%, var(--background)), var(--background));
+    background: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--tag-accent) 10%, var(--background)),
+      var(--background)
+    );
     text-decoration: none;
-    transition: transform 200ms ease, border-color 200ms ease;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease;
   }
-  .tag-card:hover { transform: translateX(6px) rotate(-0.4deg); border-color: var(--tag-accent); }
-  .tag-hash { font-family: var(--font-accent); font-size: 2rem; color: var(--tag-accent); }
-  .tag-name { font-family: var(--font-display); font-size: 1.3rem; color: var(--foreground); }
-  .tag-count { margin-inline-start: auto; font-size: 0.72rem; color: var(--muted-foreground); }
-  .tag-arrow { color: var(--tag-accent); }
-  @media (min-width: 780px) { .tag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tag-card:hover {
+    transform: translateX(6px) rotate(-0.4deg);
+    border-color: var(--tag-accent);
+  }
+  .tag-hash {
+    font-family: var(--font-accent);
+    font-size: 2rem;
+    color: var(--tag-accent);
+  }
+  .tag-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--foreground);
+  }
+  .tag-count {
+    margin-inline-start: auto;
+    font-size: 0.72rem;
+    color: var(--muted-foreground);
+  }
+  .tag-arrow {
+    color: var(--tag-accent);
+  }
+  @media (min-width: 780px) {
+    .tag-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 </style>

@@ -13,7 +13,13 @@ type Props = {
 
 const { note, featured = false, index = 0 } = Astro.props;
 const { title, description, tags, kind, pubDatetime, modDatetime } = note.data;
-const accent = ["var(--coral)", "var(--violet)", "var(--teal)", "var(--tangerine)", "var(--rose)"][index % 5];
+const accent = [
+  "var(--coral)",
+  "var(--violet)",
+  "var(--teal)",
+  "var(--tangerine)",
+  "var(--rose)",
+][index % 5];
 const date = (modDatetime ?? pubDatetime).toLocaleDateString("zh-CN", {
   year: "numeric",
   month: "short",
@@ -38,9 +44,13 @@ const date = (modDatetime ?? pubDatetime).toLocaleDateString("zh-CN", {
 
   <div class="card-bottom">
     <div class="tag-row">
-      {tags.slice(0, 3).map(tag => (
-        <a href={`${BASE_PATH}/tags/${slugifyStr(tag)}/`}>#{tag}</a>
-      ))}
+      {
+        tags
+          .slice(0, 3)
+          .map(tag => (
+            <a href={`${BASE_PATH}/tags/${slugifyStr(tag)}/`}>#{tag}</a>
+          ))
+      }
     </div>
     <a class="read-link" href={noteUrl(note.id)} aria-label={`Read ${title}`}>
       阅读 <span aria-hidden="true">↗</span>
@@ -68,24 +78,39 @@ const date = (modDatetime ?? pubDatetime).toLocaleDateString("zh-CN", {
     line-height: 1.18;
     letter-spacing: -0.02em;
   }
-  .featured-card .card-title { font-size: 1.8rem; }
-  .card-title a { color: var(--foreground); text-decoration: none; }
-  .card-title a:hover { color: var(--accent); }
+  .featured-card .card-title {
+    font-size: 1.8rem;
+  }
+  .card-title a {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--accent);
+  }
   .card-desc {
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--muted-foreground);
     min-height: 3.1em;
   }
-  .card-bottom { margin-top: 1.4rem; }
-  .tag-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .card-bottom {
+    margin-top: 1.4rem;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
   .tag-row a {
     font-size: 0.72rem;
     color: var(--muted-foreground);
     text-decoration: underline dotted;
     text-underline-offset: 3px;
   }
-  .tag-row a:hover { color: var(--accent); }
+  .tag-row a:hover {
+    color: var(--accent);
+  }
   .read-link {
     font-family: var(--font-accent);
     font-size: 1.35rem;

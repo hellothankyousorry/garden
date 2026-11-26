@@ -31,16 +31,16 @@ npm run preview      # 预览 dist
 
 ## 内容在哪里改
 
-| 想改什么 | 编辑位置 |
-|---|---|
-| 名字、简介、社交链接 | `src/data/profile.json` |
-| 履历 | `src/data/resume.json` |
-| 当前状态 | `src/data/now.json` |
-| 关于页正文 | `src/content/pages/about.md` |
-| 笔记 | `src/content/notes/*.md` |
-| 项目 | `src/content/projects/*.md` |
-| 视觉设计系统 | `src/styles/theme.css`、`src/styles/global.css` |
-| 站点 URL / base path | `src/site.config.ts` |
+| 想改什么             | 编辑位置                                        |
+| -------------------- | ----------------------------------------------- |
+| 名字、简介、社交链接 | `src/data/profile.json`                         |
+| 履历                 | `src/data/resume.json`                          |
+| 当前状态             | `src/data/now.json`                             |
+| 关于页正文           | `src/content/pages/about.md`                    |
+| 笔记                 | `src/content/notes/*.md`                        |
+| 项目                 | `src/content/projects/*.md`                     |
+| 视觉设计系统         | `src/styles/theme.css`、`src/styles/global.css` |
+| 站点 URL / base path | `src/site.config.ts`                            |
 
 详见 [CONTENT.md](./CONTENT.md)。
 
