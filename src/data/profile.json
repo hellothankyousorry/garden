@@ -1,22 +1,33 @@
 {
-  "name": "Your Name",
-  "nameZh": "你的名字",
-  "monogram": "Y",
-  "role": "Curious Mind / Maker / Lifelong Learner",
+  "name": "Lin Wan",
+  "nameZh": "林晚",
+  "signature": "Lin Wan",
+  "monogram": "L",
+  "role": "Interaction designer / 独立研究者",
   "taglineEn": "A living digital garden",
   "taglineZh": "一个持续生长的数字空间",
-  "intro": "这里是你的名字的个人数字空间。思想、笔记、项目与探索在此相遇，并随着时间慢慢生长。",
+  "intro": "我在杭州做交互设计，白天处理流程与组件，晚上整理那些没能进入项目的想法。这里是一座公开的花园：笔记、实验和还没想清楚的问题都放在同一片土里，让它们自己长出连接。",
   "introShort": "收集想法，连接知识，慢慢生长。",
-  "location": "[请填写城市]",
-  "email": "hello@example.com",
-  "availability": "开放交流 / 合作（占位）",
+  "location": "杭州，中国",
+  "timezone": "Asia/Shanghai",
+  "email": "lin.wan@wanlin.studio",
+  "availability": "2027 年春季起接受合作 / 接受写作邀约",
   "socials": [
     {
       "label": "GitHub",
       "url": "https://github.com/hellothankyousorry",
       "placeholder": false
     },
-    { "label": "Email", "url": "mailto:hello@example.com", "placeholder": true }
+    {
+      "label": "Are.na",
+      "url": "https://www.are.na/lin-wan",
+      "placeholder": true
+    },
+    {
+      "label": "Email",
+      "url": "mailto:lin.wan@wanlin.studio",
+      "placeholder": true
+    }
   ],
-  "placeholderNotice": "本站示例资料使用占位符，请在 src/data/profile.json 与内容目录中替换。"
+  "placeholderNotice": "本站人物、履历与笔记均为虚构示例内容，用于展示花园结构，不对应任何真实个人。"
 }

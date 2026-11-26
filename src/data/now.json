@@ -1,29 +1,29 @@
 {
-  "updated": "2026-11-25",
-  "note": "此页面为示例内容，请在 src/data/now.json 中替换为你的当前状态。",
+  "updated": "2026-11-24",
+  "note": "此刻页更新于 11 月 24 日。下一次更新大概在十二月中，那时 Quiet Forms 的小册子会重排一版。",
   "headline": "Now",
   "headlineZh": "此刻",
-  "intro": "这里记录此刻正在关注、学习和创造的事物。它会比 About 更频繁地更新。",
+  "intro": "这里记录此刻正在关注、学习和创造的事物。它比 About 更新得勤一些，也比履历诚实一些。",
   "items": [
     {
-      "kind": "learning",
-      "title": "探索知识花园的内容组织方式",
-      "detail": "尝试让笔记、灵感与项目之间产生更自然的连接。"
+      "kind": "building",
+      "title": "给这座花园做一张可以走的地图",
+      "detail": "现在笔记之间只有列表和反向链接。我想做一张关系图，但不想做成那种看起来很厉害、实际没人点的星空图。还在找一个让人觉得「想走过去」的图形语言。"
     },
     {
-      "kind": "building",
-      "title": "搭建这个个人数字空间",
-      "detail": "把设计、写作与工程实践放在同一个地方慢慢打磨。"
+      "kind": "learning",
+      "title": "重新学一遍排版",
+      "detail": "在读 Bringhurst 的《The Elements of Typographic Style》，每天十页，做笔记。最大的收获不是规则，而是他谈论规则时的犹豫。"
     },
     {
       "kind": "reading",
-      "title": "[正在阅读的书 / 文章]",
-      "detail": "占位内容：请替换为近期阅读。"
+      "title": "《The Timeless Way of Building》· Christopher Alexander",
+      "detail": "读到第 14 章。书里说建筑的好坏来自「模式」能否自己生长，而不是设计师的意志。这句话我在设计系统里见过它的反面。"
     },
     {
       "kind": "curious",
-      "title": "[当前好奇的问题]",
-      "detail": "占位内容：请替换为一个真实的问题。"
+      "title": "一个人写的文档，如何才会有第二个人读？",
+      "detail": "Quiet Forms 的小册子只有 4 个人读过。我试过缩短、前置结论、换载体。也许问题不在文档，而在它出现的地方没有人的动线。"
     }
   ]
 }

@@ -1,16 +1,22 @@
 {
   "headline": "Curriculum Vitae",
   "headlineZh": "履历与轨迹",
-  "summary": "请用 2–3 句话概括你的背景与关注方向。此处为占位文本，不会自动替换为真实经历。",
+  "summary": "交互设计师，过去六年在中国与北欧的产品团队之间来回。关心的是那些不显眼的东西：一个按钮为什么被点错，一份文档为什么没人读，以及一个人如何在长期项目里保持好奇。目前以独立身份做研究与工具，同时把一半时间留给写作。",
   "groups": [
     {
       "title": "Education / 教育",
       "items": [
         {
-          "period": "20XX — 20XX",
-          "title": "[学位 / 专业]",
-          "org": "[学校名称]",
-          "detail": "占位内容：请替换为你的教育经历。"
+          "period": "2013 — 2016",
+          "title": "Interaction Design, MA / 交互设计 硕士",
+          "org": "Umeå Institute of Design, Sweden",
+          "detail": "毕业设计研究「安静的界面」：在公共服务系统中，如何用更少的提示让人更有把握。导师为 Erik Sandell，论文获 IxDA 学生设计荣誉提名。"
+        },
+        {
+          "period": "2009 — 2013",
+          "title": "B.A. Digital Media / 数字媒体 学士",
+          "org": "中国美术学院，杭州",
+          "detail": "从书籍设计转入屏幕媒介，在信息图表工作室做了一年半的课程项目。毕业论文讨论的是地铁导视系统的阅读速度。"
         }
       ]
     },
@@ -18,10 +24,28 @@
       "title": "Experience / 经历",
       "items": [
         {
-          "period": "20XX — Present",
-          "title": "[职位 / 角色]",
-          "org": "[机构名称]",
-          "detail": "占位内容：请替换为你的工作或研究经历。"
+          "period": "2024 — Present",
+          "title": "Independent Designer & Researcher / 独立设计师",
+          "org": "wanlin.studio，杭州",
+          "detail": "为三家早期团队做产品界面与设计系统，累计约 14 个月的合作期。同时维护两个开源小工具，其中一个被 2,300 多名用户持续使用。"
+        },
+        {
+          "period": "2021 — 2024",
+          "title": "Senior Product Designer / 高级产品设计师",
+          "org": "Miles 品牌与设计部（远程，哥本哈根）",
+          "detail": "负责旅行预订流程的重构：把 11 步的表单压缩成 5 步，客服关于「填错日期」的工单下降了 38%。之后主导组建了内部设计系统，覆盖 6 条产品线。"
+        },
+        {
+          "period": "2018 — 2021",
+          "title": "UX Designer / 用户体验设计师",
+          "org": "云图信息科技，上海",
+          "detail": "面向政府与医院的数据看板产品。搭建了第一个可复用的图表规范，把 20 多个独立看板收敛到 9 种视图模式。"
+        },
+        {
+          "period": "2016 — 2018",
+          "title": "Designer / 设计师",
+          "org": "Studio Halva，斯德哥尔摩",
+          "detail": "小型工作室，什么都做：博物馆导视、初创公司 MVP、两本杂志的排版。学会在一周内把一个模糊需求变成可以讨论的原型。"
         }
       ]
     },
@@ -29,26 +53,49 @@
       "title": "Research & Projects / 研究与项目",
       "items": [
         {
-          "period": "20XX",
-          "title": "[项目 / 研究名称]",
-          "org": "[类型 / 合作方]",
-          "detail": "占位内容：可链接到本项目站点中的项目详情页。"
+          "period": "2025",
+          "title": "Living Garden / 数字花园",
+          "org": "个人项目 · 进行中",
+          "detail": "用 Astro 搭的个人知识空间，把笔记、项目与履历放在同一套视觉语言里。目前有 9 篇笔记、3 个项目在生长。"
+        },
+        {
+          "period": "2024",
+          "title": "Quiet Forms / 安静表单研究",
+          "org": "与两位前端工程师合作 · 已完成",
+          "detail": "关于长表单错误提示的可用性研究，8 名受访者、3 轮原型测试。结论整理成一份 42 页的小册子，在 IxDA 杭州 meetup 分享过。"
+        },
+        {
+          "period": "2023",
+          "title": "Notes as a Network / 笔记网络",
+          "org": "内部实验 · 已归档",
+          "detail": "在团队里推动用双向链接组织设计决策记录，试行了 4 个月，最终因为维护成本暂停。复盘写在了笔记里。"
         }
       ]
     }
   ],
   "skills": [
     {
-      "category": "Writing / 写作",
-      "items": ["Markdown", "Technical writing", "Note-taking"]
+      "category": "Design / 设计",
+      "items": [
+        "Interaction design",
+        "Design systems",
+        "Prototyping",
+        "Figma",
+        "Typography"
+      ]
     },
     {
-      "category": "Building / 构建",
-      "items": ["TypeScript", "Astro", "Web design"]
+      "category": "Build / 构建",
+      "items": ["HTML & CSS", "TypeScript", "Astro", "Svelte", "p5.js"]
     },
     {
-      "category": "Thinking / 思考",
-      "items": ["Research", "Systems thinking", "Curiosity"]
+      "category": "Think / 思考",
+      "items": [
+        "Research synthesis",
+        "Writing",
+        "Facilitation",
+        "English · 工作语言"
+      ]
     }
   ]
 }

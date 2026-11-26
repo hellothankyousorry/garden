@@ -9,8 +9,8 @@ export default defineAstroPaperConfig({
   site: {
     url: SITE_URL,
     title: "A Living Garden",
-    description: "思想、笔记、项目与探索在这里相遇，慢慢长成一座数字花园。",
-    author: "Your Name",
+    description: "林晚的个人数字花园：交互设计笔记、项目复盘与还没想清楚的问题。",
+    author: "Lin Wan",
     profile: "https://github.com/hellothankyousorry",
     ogImage: "og.svg",
     lang: "zh-CN",

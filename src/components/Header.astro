@@ -32,7 +32,7 @@ const navItems = [
       aria-label={`${profile.name} — home`}
     >
       <span class="brand-mark">{profile.monogram}<i>.</i></span>
-      <span class="brand-name">{profile.name}</span>
+      <span class="brand-name">{profile.signature ?? profile.name}</span>
     </a>
 
     <nav id="nav-menu" aria-label="Primary navigation" class="nav-wrap">
@@ -133,35 +133,40 @@ const navItems = [
   .brand {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.65rem;
+    gap: 0.55rem;
     white-space: nowrap;
   }
   .brand-mark {
     font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 1.85rem;
+    font-style: italic;
+    font-weight: 400;
     line-height: 1;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
   }
   .brand-mark i {
     color: var(--accent);
-    font-style: normal;
+    font-style: italic;
   }
   .brand-name {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--font-accent);
+    font-size: 1.32rem;
+    line-height: 1;
     color: var(--muted-foreground);
+    transform: rotate(-2deg);
+    transform-origin: left center;
   }
 
   .nav-list {
     display: flex;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1.45rem;
   }
   .nav-link {
     position: relative;
-    font-size: 0.88rem;
+    font-family: var(--font-editorial);
+    font-size: 0.95rem;
+    font-style: italic;
     color: var(--muted-foreground);
     transition: color 180ms ease;
   }

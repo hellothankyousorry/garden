@@ -72,13 +72,18 @@
   letter-spacing: 0.04em;
 }
 
+/* Hand-set section label: italic serif with a hairline dash that leans,
+   never wide-tracked capitals. */
 .eyebrow {
+  display: inline-block;
   font-family: var(--font-editorial);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-style: italic;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-weight: 500;
+  letter-spacing: 0.005em;
   color: var(--accent);
+  transform: rotate(-0.8deg);
+  transform-origin: left center;
 }
 
 .eyebrow::before {
@@ -89,7 +94,7 @@
   margin-right: 0.55rem;
   vertical-align: middle;
   background: currentColor;
-  opacity: 0.65;
+  opacity: 0.55;
   transform: rotate(-8deg);
 }
 
@@ -104,9 +109,27 @@
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(1.9rem, 4vw, 3.1rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+
+/* Body-level link and small text inside cards keeps the serif voice. */
+.garden-card,
+.project-card,
+.now-card,
+.side-card {
+  font-family: var(--font-editorial);
+}
+
+.garden-card p,
+.garden-card h3,
+.project-card p,
+.project-card h3,
+.now-card p,
+.now-card h2 {
+  text-wrap: pretty;
 }
 
 /* ---------- Glass / paper surfaces ---------- */
@@ -286,12 +309,13 @@
   align-items: center;
   gap: 0.45rem;
   border-radius: 2px 5px 3px 4px;
-  padding: 0.26rem 0.62rem 0.24rem;
+  padding: 0.24rem 0.66rem 0.26rem;
   font-family: var(--font-editorial);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-style: italic;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   background: var(--background);
   color: var(--foreground);
   border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);

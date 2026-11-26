@@ -23,9 +23,11 @@
   --color-rose: var(--rose);
   --color-chartreuse: var(--chartreuse);
   --color-neon: var(--neon);
+  /* Body copy leans humanist, but every label and heading is the editorial
+     serif — the garden should never look like a dashboard. */
   --font-app:
-    "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui,
-    sans-serif;
+    "Palatino Linotype", "Book Antiqua", "Noto Serif CJK SC", "Songti SC",
+    "Microsoft YaHei", Georgia, serif;
   --font-display: "Playfair Display", Georgia, serif;
   --font-accent: "Allura", cursive;
   --font-editorial:

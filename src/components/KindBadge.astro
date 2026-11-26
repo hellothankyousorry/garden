@@ -8,5 +8,7 @@ const meta = KIND_META[kind];
 
 <span class:list={["kind-pill", `kind-${kind}`]}>
   <span class="kind-dot" aria-hidden="true"></span>
-  <span>{compact ? meta.zh : `${meta.label} · ${meta.zh}`}</span>
+  <span class="kind-text"
+    >{compact ? meta.zh : `${meta.label} · ${meta.zh}`}</span
+  >
 </span>
