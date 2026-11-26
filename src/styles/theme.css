@@ -21,6 +21,8 @@
   --color-teal: var(--teal);
   --color-sky: var(--sky);
   --color-rose: var(--rose);
+  --color-chartreuse: var(--chartreuse);
+  --color-neon: var(--neon);
   --font-app: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
   --font-accent: "Allura", cursive;
@@ -48,6 +50,8 @@
   --teal: #3aa99e;
   --sky: #5c9fd6;
   --rose: #df6e9a;
+  --chartreuse: #d4d64b;
+  --neon: #e3347e;
 
   --glass: rgb(255 253 249 / 0.72);
   --glass-border: rgb(255 255 255 / 0.68);
@@ -75,6 +79,8 @@
   --teal: #6fd4c6;
   --sky: #8cc4f3;
   --rose: #f59ec0;
+  --chartreuse: #dfe86b;
+  --neon: #ff6fae;
 
   --glass: rgb(31 25 46 / 0.7);
   --glass-border: rgb(255 255 255 / 0.1);

@@ -25,6 +25,8 @@
 - Teal `#3aa99e` — 履历、常青
 - Sky `#5c9fd6` — 此刻
 - Rose `#df6e9a` — 关于、标签
+- Chartreuse `#d4d64b` — 参考图中的黄绿色拼贴带
+- Neon `#e3347e` — 参考图中的荧光粉手写标题
 
 页面通过 `body[data-page]` 切换主强调色，因此页面性格不同，但仍共享同一套排版与间距规则。正文与背景对比度优先于装饰；深色模式下降低抽象图形透明度。
 
@@ -43,7 +45,19 @@
 
 ## 4. 图形系统
 
-`src/components/AmbientShapes.astro` 提供全站固定的抽象背景：三组模糊有机色块、两条曲线和四个节点。首页另有轨道圆、浮动纸条与知识关系 SVG。项目卡片使用渐变与半透明有机形状作为封面，不使用廉价 3D 球体或粒子动画。
+`src/components/AmbientShapes.astro` 提供全站固定的抽象背景：四组模糊有机色块、四条曲线和六个节点。首页另有轨道圆、浮动纸条与知识关系 SVG。项目卡片使用渐变与半透明有机形状作为封面，不使用廉价 3D 球体或粒子动画。
+
+### 4.1 视觉参考图转译
+
+用户提供的参考图是一张「imagine your website as a garden」手绘拼贴。它没有被当作截图复制，而是转译为一套可维护的组件：
+
+- 黄绿／青绿两条竖向色带 → `GardenVerbs.astro` 的 `.bands`；
+- 荧光粉手写大标题「a garden」 → Allura 字体 + `--neon`；
+- 白色小纸片上的 garden verbs（EXPERIMENT / GROW / CARE FOR / NOURISH / SHARE / PLANT / DISCOVER / CONNECT / CULTIVATE）→ 绝对定位、随机旋转的 `.verb` 标签；
+- 手绘植物根系与放射连接线 → SVG `.sprout` + `.web-threads`，背景层也增加了连接线；
+- 橙色气泡「verbs for gardens」 → `.bubble`；
+- 原图的英文定义改写为中文说明，避免让装饰承担信息传达；
+- 文字与背景始终维持足够对比，色带透明度 0.2，深色模式进一步降低；手机端隐藏部分标签。
 
 动画仅用于轻微漂移、悬停位移和进度条；`prefers-reduced-motion: reduce` 下全部停止。
 

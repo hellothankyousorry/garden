@@ -17,6 +17,10 @@
         <stop offset="0%" stop-color="var(--teal)" stop-opacity="0.34" />
         <stop offset="100%" stop-color="var(--rose)" stop-opacity="0.04" />
       </linearGradient>
+      <linearGradient id="g-chartreuse" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="var(--chartreuse)" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="var(--teal)" stop-opacity="0.03" />
+      </linearGradient>
       <filter id="soften" x="-40%" y="-40%" width="180%" height="180%">
         <feGaussianBlur stdDeviation="46" />
       </filter>
@@ -26,15 +30,20 @@
       <path class="blob" fill="url(#g-coral)" d="M-120 160C110 20 330 40 430 170c104 134 30 300-120 340C137 552-40 470-120 340Z" />
       <path class="blob" fill="url(#g-violet)" d="M980 -90c150 60 330 10 420 140 92 132 22 300-130 330-176 34-330-80-350-220-16-113 10-193 60-250Z" />
       <path class="blob" fill="url(#g-teal)" d="M760 640c130-100 300-70 390 50 88 118 30 280-120 320-160 42-330-50-360-180-22-96 26-146 90-190Z" />
+      <path class="blob" fill="url(#g-chartreuse)" d="M120 700c90-80 230-60 280 50 46 102-20 210-140 220-120 10-200-80-190-170 6-52 20-75 50-100Z" />
     </g>
 
     <g class="thread-line" opacity="0.5">
       <path d="M180 240C360 120 540 420 730 260S1090 180 1280 330" />
       <path d="M260 700C470 560 600 760 820 620S1160 540 1330 650" />
+      <path d="M90 420C280 300 380 520 600 400S980 320 1180 460" />
+      <path d="M420 80C520 220 760 120 900 260S1160 300 1380 180" />
       <circle cx="180" cy="240" r="4" fill="var(--coral)" stroke="none" />
       <circle cx="730" cy="260" r="5" fill="var(--violet)" stroke="none" />
       <circle cx="1280" cy="330" r="4" fill="var(--teal)" stroke="none" />
       <circle cx="820" cy="620" r="5" fill="var(--tangerine)" stroke="none" />
+      <circle cx="600" cy="400" r="3.5" fill="var(--neon)" stroke="none" />
+      <circle cx="900" cy="260" r="4" fill="var(--chartreuse)" stroke="none" />
     </g>
   </svg>
 </div>

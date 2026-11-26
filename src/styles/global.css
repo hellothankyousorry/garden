@@ -140,10 +140,10 @@
 .hero-script {
   position: absolute;
   z-index: 3;
-  right: clamp(1rem, 11vw, 11rem);
-  top: 18%;
-  font-size: clamp(3.5rem, 8vw, 7.5rem);
-  transform: rotate(-8deg);
+  right: clamp(1rem, 5vw, 5rem);
+  top: 5%;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  transform: rotate(-6deg);
   pointer-events: none;
 }
 

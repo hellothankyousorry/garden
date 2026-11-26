@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import NoteCard from "@/components/NoteCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
+import GardenVerbs from "@/components/GardenVerbs.astro";
 import { getPublishedNotes, getPublishedProjects, noteUrl } from "@/utils/knowledge";
 import profile from "@/data/profile.json";
 import now from "@/data/now.json";
@@ -136,30 +137,7 @@ const paths = [
       )
     }
 
-    <section class="app-layout pb-20 pt-10" aria-label="Garden connections">
-      <div class="garden-map paper-card">
-        <div class="map-copy">
-          <p class="eyebrow">The garden is connected</p>
-          <h2 class="section-title mt-2">思想在这里彼此遇见</h2>
-          <p class="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">
-            笔记可以链接笔记，项目可以引用笔记，种子可以长成常青。
-            你不需要按目录阅读——沿着好奇心走就好。
-          </p>
-          <a class="quiet-link mt-6 inline-block" href={`${BASE_PATH}/tags/`}>按标签漫游 <span aria-hidden="true">→</span></a>
-        </div>
-        <svg class="map-svg" viewBox="0 0 420 260" role="img" aria-label="抽象的知识连接图">
-          <g class="thread-line">
-            <path d="M40 190 C120 40 200 230 280 90 S380 130 400 50" />
-            <path d="M60 60 C140 160 230 40 330 170" />
-          </g>
-          <circle cx="40" cy="190" r="9" fill="var(--tangerine)" />
-          <circle cx="140" cy="112" r="14" fill="var(--violet)" />
-          <circle cx="280" cy="90" r="11" fill="var(--coral)" />
-          <circle cx="330" cy="170" r="8" fill="var(--teal)" />
-          <circle cx="400" cy="50" r="6" fill="var(--sky)" />
-        </svg>
-      </div>
-    </section>
+    <GardenVerbs />
   </main>
 
   <Footer />
@@ -230,24 +208,13 @@ const paths = [
   .path-zh { font-size: 1.35rem; color: var(--path-accent); }
   .path-note { margin-top: 0.5rem; font-size: 0.74rem; color: var(--muted-foreground); }
   .path-arrow { position: absolute; top: 1.2rem; right: 1.4rem; color: var(--path-accent); }
-  .garden-map {
-    display: grid;
-    gap: 2rem;
-    border-radius: 1.8rem;
-    padding: 2rem;
-    align-items: center;
-  }
-  .map-svg { width: 100%; max-width: 30rem; height: auto; }
-
   @media (min-width: 900px) {
     .now-strip { grid-template-columns: 1fr 1.6fr auto; }
-    .garden-map { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 700px) {
     .floating-note { display: none !important; }
-    .hero-script { top: 8%; right: 4%; font-size: 2.1rem; opacity: 0.8; }
+    .hero-script { top: auto; bottom: 9%; right: 7%; font-size: 2.4rem; opacity: 0.7; }
     .hero-copy { padding-block: 3rem 5rem; }
     .scroll-cue { display: none; }
-    .map-svg { max-width: 100%; }
   }
 </style>
